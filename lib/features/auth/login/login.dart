@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+<<<<<<<< HEAD:lib/Auth/features/login.dart
 import 'package:todoapp/core/colors.dart';
 import 'package:todoapp/Auth/features/signup.dart';
 import 'package:todoapp/Auth/features/widgets/customform.dart';
 import 'package:todoapp/Auth/features/widgets/icons.dart';
+========
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/features/auth/signup/signup.dart';
+
+import '../../../core/widegts/customform.dart';
+import '../onboarding_screen/widgets/icons.dart';
+>>>>>>>> 955978f2ac158795e90fde44dbb385c8143f1701:lib/features/auth/login/login.dart
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
