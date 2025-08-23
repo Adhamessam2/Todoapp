@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
-import 'package:todoapp/features/auth/onboarding_screen/Startscreen2.dart';
-import 'package:todoapp/core/widegts/buttons.dart';
-import 'package:todoapp/features/auth/onboarding_screen/widgets/dashs.dart';
 
 class Startscreen1 extends StatelessWidget {
   const Startscreen1({super.key});
@@ -34,28 +31,29 @@ class Startscreen1 extends StatelessWidget {
               style: Customstyle.mystyle,
             ),
             SizedBox(height: 200),
-            Padding(
-              padding: const EdgeInsets.only(right: 50),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Dash(width: 40),
-                  const SizedBox(width: 8),
-                  Dash(width: 20),
-                  const SizedBox(width: 8),
-                  Dash(width: 20),
-                  const SizedBox(width: 40),
-                  Forwardbutton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Startscreen2()),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 50),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.end,
+            //     children: [
+            //       Dash(width: 40),
+            //       const SizedBox(width: 8),
+            //       Dash(width: 20),
+            //       const SizedBox(width: 8),
+            //       Dash(width: 20),
+            //       const SizedBox(width: 40),
+            //       Forwardbutton(
+            //         onPressed: () {
+            //           Navigator.push(
+            //             context,
+            //             MaterialPageRoute(builder: (context) => Startscreen2()),
+            //           );
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),

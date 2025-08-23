@@ -14,22 +14,26 @@ class Customtextformfield extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 400,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: TextFormField(
-        validator: validator,
-        controller: controller,
-        decoration: InputDecoration(
-          hintText: label,
-          hintStyle: TextStyle(color: Colors.black),
-          prefixIcon: Icon(icon, color: Colors.black),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide.none,
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: Container(
+        margin: EdgeInsets.all(6),
+        width: 390,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: TextFormField(
+          validator: validator,
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: label,
+            hintStyle: TextStyle(color: Colors.black),
+            prefixIcon: Icon(icon, color: Colors.black),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: BorderSide.none,
+            ),
           ),
         ),
       ),

@@ -18,6 +18,8 @@ class _SignupscreenState extends State<Signupscreen> {
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size; // Get screen size
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -31,28 +33,34 @@ class _SignupscreenState extends State<Signupscreen> {
         ),
         child: Column(
           children: [
-            SizedBox(height: 50),
+            SizedBox(height: screenSize.height * 0.05),
             Image.asset('assets/Checkmark.png'),
-            SizedBox(height: 40),
+            SizedBox(height: screenSize.height * 0.05),
             Padding(
-              padding: const EdgeInsets.only(right: 90),
+              padding: EdgeInsets.only(right: screenSize.width * 0.2),
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(right: 85),
+                    padding: EdgeInsets.only(right: screenSize.width * 0.2),
                     child: Text(
                       'Welcome to DO IT ',
-                      style: TextStyle(fontSize: 24, color: Colors.white),
+                      style: TextStyle(
+                        fontSize: screenSize.width * 0.06,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   Text(
                     'create an account and Join us now!',
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: screenSize.width * 0.045,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 45),
+            SizedBox(height: screenSize.height * 0.03),
             Form(
               key: formkey,
               child: Column(
@@ -68,7 +76,7 @@ class _SignupscreenState extends State<Signupscreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: screenSize.height * 0.02),
                   Customtextformfield(
                     label: 'Email',
                     icon: Icons.email,
@@ -84,7 +92,7 @@ class _SignupscreenState extends State<Signupscreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: screenSize.height * 0.02),
                   Customtextformfield(
                     label: 'Password',
                     icon: Icons.lock,
@@ -103,7 +111,7 @@ class _SignupscreenState extends State<Signupscreen> {
               ),
             ),
 
-            SizedBox(height: 20),
+            SizedBox(height: screenSize.height * 0.01),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
@@ -114,14 +122,17 @@ class _SignupscreenState extends State<Signupscreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: screenSize.height * 0.01),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Appcolors.lightblue,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                 ),
-                fixedSize: Size(350, 60),
+                fixedSize: Size(
+                  screenSize.width * 0.9,
+                  screenSize.height * 0.07,
+                ),
               ),
               onPressed: () {
                 if (formkey.currentState!.validate()) {
@@ -133,7 +144,10 @@ class _SignupscreenState extends State<Signupscreen> {
               },
               child: Text(
                 'Sign Up',
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: screenSize.width * 0.05,
+                ),
               ),
             ),
             Row(
@@ -158,7 +172,7 @@ class _SignupscreenState extends State<Signupscreen> {
                 ),
               ],
             ),
-            SizedBox(height: 50),
+            SizedBox(height: screenSize.height * 0.05),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -166,34 +180,34 @@ class _SignupscreenState extends State<Signupscreen> {
                   'Sign Up with :',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontSize: screenSize.width * 0.045,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: screenSize.width * 0.02),
                 Customicons(
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.facebook, color: Colors.blue),
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: screenSize.width * 0.02),
                 Customicons(
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(Icons.apple, color: Colors.grey),
                   ),
                 ),
-                SizedBox(width: 10),
+                SizedBox(width: screenSize.width * 0.02),
                 Customicons(
                   child: IconButton(
                     icon: Image.asset(
                       'assets/Google.png',
-                      height: 30,
-                      width: 30,
+                      height: screenSize.width * 0.07,
+                      width: screenSize.width * 0.07,
                     ),
                     onPressed: () {},
-                    iconSize: 30,
+                    iconSize: screenSize.width * 0.07,
                   ),
                 ),
               ],

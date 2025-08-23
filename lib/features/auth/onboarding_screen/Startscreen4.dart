@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
 import 'package:todoapp/features/auth/login/login.dart';
-import 'package:todoapp/core/widegts/buttons.dart';
-import 'package:todoapp/features/auth/onboarding_screen/widgets/dashs.dart';
 
 class Startscreen4 extends StatefulWidget {
   const Startscreen4({super.key});
@@ -43,19 +41,35 @@ class _Startscreen4State extends State<Startscreen4> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Dash(width: 20),
-                  const SizedBox(width: 8),
-                  Dash(width: 20),
-                  const SizedBox(width: 8),
-                  Dash(width: 40),
-                  const SizedBox(width: 40),
-                  Forwardbutton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Loginscreen()),
-                      );
-                    },
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20, top: 30),
+                    child: Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 2,
+                            blurRadius: 7,
+                          ),
+                        ],
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Loginscreen(),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.check),
+                      ),
+                    ),
                   ),
                 ],
               ),

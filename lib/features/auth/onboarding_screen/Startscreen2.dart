@@ -39,28 +39,28 @@ class _Startscreen2State extends State<Startscreen2> {
               style: Customstyle.mystyle,
             ),
             SizedBox(height: 200),
-            Padding(
-              padding: const EdgeInsets.only(right: 50),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Dash(width: 20),
-                  const SizedBox(width: 8),
-                  Dash(width: 40),
-                  const SizedBox(width: 8),
-                  Dash(width: 20),
-                  const SizedBox(width: 40),
-                  Forwardbutton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Startscreen3()),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.only(right: 50),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.end,
+            //     children: [
+            //       Dash(width: 20),
+            //       const SizedBox(width: 8),
+            //       Dash(width: 40),
+            //       const SizedBox(width: 8),
+            //       Dash(width: 20),
+            //       const SizedBox(width: 40),
+            //       Forwardbutton(
+            //         onPressed: () {
+            //           Navigator.push(
+            //             context,
+            //             MaterialPageRoute(builder: (context) => Startscreen3()),
+            //           );
+            //         },
+            //       ),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
