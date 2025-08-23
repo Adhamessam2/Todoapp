@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:todoapp/Auth/features/splash.dart';
-=======
-import 'package:todoapp/features/splash.dart';
->>>>>>> e139122b33bf5e49047ed4fbaaa599cc00873db6
 
 void main() {
   runApp(Todoapp());
