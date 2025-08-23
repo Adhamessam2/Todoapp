@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/core/colors.dart';
-import 'package:todoapp/features/startscreen1.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/features/auth/onboarding_screen/startscreen1.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});

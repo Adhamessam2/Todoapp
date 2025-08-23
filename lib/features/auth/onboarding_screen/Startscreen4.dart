@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/core/colors.dart';
-import 'package:todoapp/core/commonstyle.dart';
-import 'package:todoapp/features/Startscreen2.dart';
-import 'package:todoapp/features/widgets/buttons.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/style_manegares/commonstyle.dart';
+import 'package:todoapp/features/auth/login/login.dart';
+import 'package:todoapp/core/widegts/buttons.dart';
+import 'package:todoapp/features/auth/onboarding_screen/widgets/dashs.dart';
 
-import 'package:todoapp/features/widgets/dashs.dart';
 
-class Startscreen1 extends StatelessWidget {
-  const Startscreen1({super.key});
+class Startscreen4 extends StatefulWidget {
+  const Startscreen4({super.key});
 
+  @override
+  State<Startscreen4> createState() => _Startscreen4State();
+}
+
+class _Startscreen4State extends State<Startscreen4> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,13 +30,12 @@ class Startscreen1 extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 100),
-
-              child: Image.asset('assets/notepad icon .png'),
+              padding: const EdgeInsets.only(top: 160),
+              child: Image.asset('assets/Shield.png'),
             ),
             SizedBox(height: 40),
             Text(
-              ' Plan your tasks to do, that\n way you’ll stay organized\n and you won’t skip any',
+              ' You informations are\n     secure with us',
               style: Customstyle.mystyle,
             ),
             SizedBox(height: 200),
@@ -40,17 +44,17 @@ class Startscreen1 extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
+                  Dash(width: 20),
+                  const SizedBox(width: 8),
+                  Dash(width: 20),
+                  const SizedBox(width: 8),
                   Dash(width: 40),
-                  const SizedBox(width: 8),
-                  Dash(width: 20),
-                  const SizedBox(width: 8),
-                  Dash(width: 20),
                   const SizedBox(width: 40),
                   Forwardbutton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Startscreen2()),
+                        MaterialPageRoute(builder: (context) => Loginscreen()),
                       );
                     },
                   ),

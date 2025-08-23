@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/core/colors.dart';
-import 'package:todoapp/features/signup.dart';
-import 'package:todoapp/features/widgets/customform.dart';
-import 'package:todoapp/features/widgets/icons.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/features/auth/signup/signup.dart';
+
+import '../../../core/widegts/customform.dart';
+import '../onboarding_screen/widgets/icons.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});

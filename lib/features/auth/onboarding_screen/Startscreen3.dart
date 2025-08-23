@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/core/colors.dart';
-import 'package:todoapp/core/commonstyle.dart';
-import 'package:todoapp/features/login.dart';
-import 'package:todoapp/features/widgets/buttons.dart';
-import 'package:todoapp/features/widgets/dashs.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/style_manegares/commonstyle.dart';
+import 'package:todoapp/core/widegts/buttons.dart';
+import 'package:todoapp/features/auth/onboarding_screen/widgets/dashs.dart';
 
-class Startscreen4 extends StatefulWidget {
-  const Startscreen4({super.key});
+
+import 'Startscreen4.dart';
+
+class Startscreen3 extends StatefulWidget {
+  const Startscreen3({super.key});
 
   @override
-  State<Startscreen4> createState() => _Startscreen4State();
+  State<Startscreen3> createState() => _Startscreen3State();
 }
 
-class _Startscreen4State extends State<Startscreen4> {
+class _Startscreen3State extends State<Startscreen3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,11 +32,12 @@ class _Startscreen4State extends State<Startscreen4> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 160),
-              child: Image.asset('assets/Shield.png'),
+
+              child: Image.asset('assets/team.png'),
             ),
             SizedBox(height: 40),
             Text(
-              ' You informations are\n     secure with us',
+              ' create a team task, invite\n people and manage your\n         work together',
               style: Customstyle.mystyle,
             ),
             SizedBox(height: 200),
@@ -45,15 +48,15 @@ class _Startscreen4State extends State<Startscreen4> {
                 children: [
                   Dash(width: 20),
                   const SizedBox(width: 8),
-                  Dash(width: 20),
-                  const SizedBox(width: 8),
                   Dash(width: 40),
+                  const SizedBox(width: 8),
+                  Dash(width: 20),
                   const SizedBox(width: 40),
                   Forwardbutton(
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Loginscreen()),
+                        MaterialPageRoute(builder: (context) => Startscreen4()),
                       );
                     },
                   ),

@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/core/colors.dart';
-import 'package:todoapp/core/commonstyle.dart';
-import 'package:todoapp/features/Startscreen3.dart';
-import 'package:todoapp/features/widgets/buttons.dart';
-import 'package:todoapp/features/widgets/dashs.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/style_manegares/commonstyle.dart';
+import 'package:todoapp/features/auth/onboarding_screen/Startscreen2.dart';
+import 'package:todoapp/core/widegts/buttons.dart';
+import 'package:todoapp/features/auth/onboarding_screen/widgets/dashs.dart';
 
-class Startscreen2 extends StatefulWidget {
-  const Startscreen2({super.key});
+class Startscreen1 extends StatelessWidget {
+  const Startscreen1({super.key});
 
-  @override
-  State<Startscreen2> createState() => _Startscreen2State();
-}
-
-class _Startscreen2State extends State<Startscreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +26,11 @@ class _Startscreen2State extends State<Startscreen2> {
             Padding(
               padding: const EdgeInsets.only(top: 100),
 
-              child: Image.asset('assets/calendar.png'),
+              child: Image.asset('assets/notepad icon .png'),
             ),
             SizedBox(height: 40),
             Text(
-              ' Make a full schedule for\n the whole week and stay\n organized and productive\n                all days',
+              ' Plan your tasks to do, that\n way you’ll stay organized\n and you won’t skip any',
               style: Customstyle.mystyle,
             ),
             SizedBox(height: 200),
@@ -44,9 +39,9 @@ class _Startscreen2State extends State<Startscreen2> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Dash(width: 20),
-                  const SizedBox(width: 8),
                   Dash(width: 40),
+                  const SizedBox(width: 8),
+                  Dash(width: 20),
                   const SizedBox(width: 8),
                   Dash(width: 20),
                   const SizedBox(width: 40),
@@ -54,7 +49,7 @@ class _Startscreen2State extends State<Startscreen2> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Startscreen3()),
+                        MaterialPageRoute(builder: (context) => Startscreen2()),
                       );
                     },
                   ),
