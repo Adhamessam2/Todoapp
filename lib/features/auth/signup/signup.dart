@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
-<<<<<<<< HEAD:lib/Auth/features/signup.dart
-import 'package:todoapp/core/colors.dart';
-import 'package:todoapp/Auth/features/login.dart';
-import 'package:todoapp/Auth/features/widgets/customform.dart';
-import 'package:todoapp/Auth/features/widgets/icons.dart';
-========
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/features/auth/login/login.dart';
-
-
 import '../../../core/widegts/customform.dart';
 import '../onboarding_screen/widgets/icons.dart';
->>>>>>>> 955978f2ac158795e90fde44dbb385c8143f1701:lib/features/auth/signup/signup.dart
 
 class Signupscreen extends StatefulWidget {
   const Signupscreen({super.key});
@@ -21,6 +12,10 @@ class Signupscreen extends StatefulWidget {
 }
 
 class _SignupscreenState extends State<Signupscreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,11 +53,56 @@ class _SignupscreenState extends State<Signupscreen> {
               ),
             ),
             SizedBox(height: 45),
-            Customtextformfield(label: 'Name', icon: Icons.person),
-            SizedBox(height: 20),
-            Customtextformfield(label: 'Email', icon: Icons.email),
-            SizedBox(height: 20),
-            Customtextformfield(label: 'Password', icon: Icons.lock),
+            Form(
+              key: formkey,
+              child: Column(
+                children: [
+                  Customtextformfield(
+                    label: 'Name',
+                    icon: Icons.person,
+                    controller: nameController,
+                    validator: (value) {
+                      if (nameController.text.isEmpty) {
+                        return 'Please enter your name';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  Customtextformfield(
+                    label: 'Email',
+                    icon: Icons.email,
+                    controller: emailController,
+                    validator: (value) {
+                      if (emailController.text.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (emailController.text.contains('@gmail.com') ==
+                          false) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  Customtextformfield(
+                    label: 'Password',
+                    icon: Icons.lock,
+                    controller: passwordController,
+                    validator: (vlue) {
+                      if (passwordController.text.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      if (passwordController.text.length < 6) {
+                        return 'Password must be at least 6 characters';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+
             SizedBox(height: 20),
             Align(
               alignment: Alignment.centerRight,
@@ -83,7 +123,14 @@ class _SignupscreenState extends State<Signupscreen> {
                 ),
                 fixedSize: Size(350, 60),
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (formkey.currentState!.validate()) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Loginscreen()),
+                  );
+                }
+              },
               child: Text(
                 'Sign Up',
                 style: TextStyle(color: Colors.white, fontSize: 20),

@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-<<<<<<<< HEAD:lib/Auth/features/login.dart
-import 'package:todoapp/core/colors.dart';
-import 'package:todoapp/Auth/features/signup.dart';
-import 'package:todoapp/Auth/features/widgets/customform.dart';
-import 'package:todoapp/Auth/features/widgets/icons.dart';
-========
 import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/widegts/customform.dart';
+import 'package:todoapp/features/auth/onboarding_screen/widgets/icons.dart';
 import 'package:todoapp/features/auth/signup/signup.dart';
-
-import '../../../core/widegts/customform.dart';
-import '../onboarding_screen/widgets/icons.dart';
->>>>>>>> 955978f2ac158795e90fde44dbb385c8143f1701:lib/features/auth/login/login.dart
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -20,6 +12,10 @@ class Loginscreen extends StatefulWidget {
 }
 
 class _LoginscreenState extends State<Loginscreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,9 +51,47 @@ class _LoginscreenState extends State<Loginscreen> {
             ),
             SizedBox(height: 45),
 
-            Customtextformfield(label: 'Email', icon: Icons.email),
-            SizedBox(height: 20),
-            Customtextformfield(label: 'Password', icon: Icons.lock),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Customtextformfield(
+                    label: 'Email',
+                    icon: Icons.email,
+                    controller: emailController,
+                    validator: (value) {
+                      if (emailController.text.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (emailController.text.contains('@gmail.com') ==
+                          false) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                      // if( !RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(value!)){
+                      //   return 'Please enter a valid email';
+                      // }
+                    },
+                  ),
+                  SizedBox(height: 20),
+                  Customtextformfield(
+                    label: 'Password',
+                    icon: Icons.lock,
+                    controller: passwordController,
+                    validator: (value) {
+                      if (passwordController.text.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      if (passwordController.text.length < 6) {
+                        return 'Please enter a valid password';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+
             SizedBox(height: 20),
             Align(
               alignment: Alignment.centerRight,
@@ -78,7 +112,14 @@ class _LoginscreenState extends State<Loginscreen> {
                 ),
                 fixedSize: Size(350, 60),
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  //  Navigator.pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => homescreen()),
+                  // );
+                }
+              },
               child: Text(
                 'Login',
                 style: TextStyle(color: Colors.white, fontSize: 20),

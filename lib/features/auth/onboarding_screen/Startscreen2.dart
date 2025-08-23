@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
-<<<<<<<< HEAD:lib/Auth/features/onboarding/Startscreen2.dart
-import 'package:todoapp/core/colors.dart';
-import 'package:todoapp/core/commonstyle.dart';
-import 'package:todoapp/Auth/features/onboarding/Startscreen3.dart';
-import 'package:todoapp/Auth/features/widgets/buttons.dart';
-import 'package:todoapp/Auth/features/widgets/dashs.dart';
-========
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
 import 'package:todoapp/features/auth/onboarding_screen/Startscreen3.dart';
 import 'package:todoapp/core/widegts/buttons.dart';
 import 'package:todoapp/features/auth/onboarding_screen/widgets/dashs.dart';
-
->>>>>>>> 955978f2ac158795e90fde44dbb385c8143f1701:lib/features/auth/onboarding_screen/Startscreen2.dart
 
 class Startscreen2 extends StatefulWidget {
   const Startscreen2({super.key});
