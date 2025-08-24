@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/widegts/customform.dart';
+import 'package:todoapp/features/addTasks/presentation/add_task_screen.dart';
 import 'package:todoapp/features/auth/onboarding_screen/widgets/icons.dart';
 import 'package:todoapp/features/auth/signup/signup.dart';
 
@@ -126,7 +127,15 @@ class _LoginscreenState extends State<Loginscreen> {
                     ),
                   ),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {}
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddTaskScreen(),
+                        ),
+                      );
+
+                    }
                   },
                   child: Text(
                     'Login',
@@ -207,6 +216,7 @@ class _LoginscreenState extends State<Loginscreen> {
           ),
         ),
       ),
+      
     );
   }
 }
