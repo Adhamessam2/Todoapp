@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:todoapp/features/splash_screen/splash.dart';
+
 
 void main() {
   runApp(Todoapp());
