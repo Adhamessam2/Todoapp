@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
+import 'package:todoapp/features/addTasks/presentation/main_screen.dart';
 import 'package:todoapp/features/calendar/calendar_Screen.dart';
 import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
 import 'package:todoapp/features/splash_screen/splash.dart';
@@ -23,10 +25,7 @@ class _TodoappState extends State<Todoapp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: BlocProvider(
-        create: (context) => CalendarCubit(),
-        child: CalendarScreen(),
-      ),
+      home: BlocProvider(create: (context) => NavCubit(), child: MainScreen()),
       debugShowCheckedModeBanner: false,
     );
   }

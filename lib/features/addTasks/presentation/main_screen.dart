@@ -4,15 +4,17 @@ import 'package:todoapp/core/widegts/custom_button_nav_bar.dart';
 import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
 import 'package:todoapp/features/addTasks/cubit/nav_state.dart';
 import 'package:todoapp/features/addTasks/presentation/add_task_screen.dart';
+import 'package:todoapp/features/calendar/calendar_Screen.dart';
+import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
 import 'package:todoapp/features/home/presentation/screens/home_screen.dart';
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+  MainScreen({super.key});
 
-  final List<Widget> screens = const [
-    HomeScreen(),
-    AddTaskScreen(),
-    // CalendarScreen(),
+  final List<Widget> screens = [
+    const HomeScreen(),
+    const AddTaskScreen(),
+    BlocProvider(create: (context) => CalendarCubit(), child: CalendarScreen()),
     // SettingsScreen(),
   ];
 

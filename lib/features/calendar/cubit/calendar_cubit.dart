@@ -14,11 +14,20 @@ class CalendarCubit extends Cubit<CalendarStatus> {
   }
 
   List<TodoModel> userTodos = [];
+
   Future<void> showTasks(DateTime day) async {
+    List<TodoModel> userTodosBytime = [];
     userTodos = await FirebaseFunctions().getTasks();
+    for (var todo in userTodos) {
+      String daedlin = todo.deadline.toString().split(' ')[0];
+      daedlin == day.toString().split(' ')[0]
+          ? userTodosBytime.add(todo)
+          : null;
+    }
+
     emit(
       LoadingTasks(
-        userTodos: userTodos,
+        userTodos: userTodosBytime,
         selectedDay: day,
         today: DateTime.now(),
       ),

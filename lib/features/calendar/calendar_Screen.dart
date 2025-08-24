@@ -6,11 +6,15 @@ import 'package:todoapp/core/style_manegares/commonstyle.dart';
 import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
 import 'package:todoapp/features/calendar/cubit/calendar_status.dart';
 
+// ignore: must_be_immutable
 class CalendarScreen extends StatelessWidget {
   CalendarScreen({super.key});
   DateTime today = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -27,19 +31,25 @@ class CalendarScreen extends StatelessWidget {
               final cubit = context.read<CalendarCubit>();
 
               return Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(
+                  (width > height) ? height * 0.04 : width * 0.04,
+                ),
                 child: Column(
                   children: [
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.all(2),
+                          padding: EdgeInsets.all(
+                            (width > height) ? height * 0.01 : width * 0.01,
+                          ),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(50),
                           ),
                           child: Icon(
-                            size: 32,
+                            size: (width > height)
+                                ? height * 0.05
+                                : width * 0.05,
                             Icons.keyboard_arrow_left,
                             color: const Color(0xff1AA2C0),
                           ),
@@ -53,7 +63,9 @@ class CalendarScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-
+                    SizedBox(
+                      height: (width > height) ? height * 0.04 : width * 0.04,
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -65,8 +77,10 @@ class CalendarScreen extends StatelessWidget {
                                 titleCentered: true,
                                 formatButtonVisible: false,
                                 titleTextStyle: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24,
+                                  color: const Color.fromARGB(255, 0, 0, 0),
+                                  fontSize: (width > height)
+                                      ? height * 0.05
+                                      : width * 0.05,
                                 ),
                               ),
                               focusedDay: state.today,
@@ -94,10 +108,21 @@ class CalendarScreen extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text(
-                        "Tasks deadline in ${state.selectedDay.toString().split(' ')[0]}",
+                      elevation: 5,
+                      content: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                            colors: [Appcolors.blue, Appcolors.navyblue],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                        ),
+                        child: ListView.builder(
+                          itemCount: state.userTodos.length,
+                          itemBuilder: (context, index) {},
+                        ),
                       ),
-                      content: Container(),
                     );
                   },
                 );
