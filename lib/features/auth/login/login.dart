@@ -80,6 +80,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           }
                           return null;
                         },
+                        ispassword: false,
                       ),
                       SizedBox(height: screenSize.height * 0.02),
                       Customtextformfield(
@@ -95,6 +96,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           }
                           return null;
                         },
+                        ispassword: true,
                       ),
                     ],
                   ),

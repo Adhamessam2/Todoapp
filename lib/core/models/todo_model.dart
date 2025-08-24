@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class TodoModel {
   final String id, title, description;
   final DateTime deadline;
@@ -18,8 +20,12 @@ class TodoModel {
       id: json['id'],
       description: json['description'],
       title: json['title'],
+
       deadline: DateTime.parse(json['deadline']),
       isCompleted: json['isCompleted'] ?? false,
+      deadline: json['deadline'] is String
+          ? DateTime.parse(json['deadline'])
+          : (json['deadline'] as Timestamp).toDate(),
     );
   }
 
