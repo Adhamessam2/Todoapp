@@ -40,7 +40,7 @@ class _OnboardingState extends State<Onboarding> {
                 dotColor: Colors.white,
                 activeDotColor: Colors.white,
                 dotHeight: 10,
-                dotWidth: 12,
+                dotWidth: 9,
                 expansionFactor: 4, // how wide the active dot gets
               ),
             ),
