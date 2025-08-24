@@ -15,3 +15,5 @@ class AuthErrorState extends AuthStates {
   final String error;
   AuthErrorState({required this.error});
 }
+
+class AuthLogout extends AuthStates {}
