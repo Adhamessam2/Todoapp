@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
+import 'package:todoapp/features/addTasks/presentation/add_task_screen.dart';
+import 'package:todoapp/features/addTasks/presentation/main_screen.dart';
 import 'package:todoapp/features/splash_screen/splash.dart';
 
 void main() {
@@ -15,9 +19,12 @@ class Todoapp extends StatefulWidget {
 class _TodoappState extends State<Todoapp> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Splashscreen(),
-      debugShowCheckedModeBanner: false,
+    return BlocProvider(
+      create: (context) => NavCubit(),
+      child: const MaterialApp(
+        home: MainScreen(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
