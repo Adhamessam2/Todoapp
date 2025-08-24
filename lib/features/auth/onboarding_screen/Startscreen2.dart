@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> 116215518713043e19efadcac2ff35bab4379d96
 
 class Startscreen2 extends StatefulWidget {
   const Startscreen2({super.key});
@@ -39,7 +35,6 @@ class _Startscreen2State extends State<Startscreen2> {
               ' Make a full schedule for\n the whole week and stay\n organized and productive\n                all days',
               style: Customstyle.mystyle,
             ),
-            SizedBox(height: 200),
           ],
         ),
       ),

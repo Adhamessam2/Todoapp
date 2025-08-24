@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
-<<<<<<< HEAD
-=======
-
->>>>>>> 116215518713043e19efadcac2ff35bab4379d96
 
 class Startscreen3 extends StatefulWidget {
   const Startscreen3({super.key});
