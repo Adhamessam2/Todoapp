@@ -189,7 +189,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                   deadline: deadline,
                                   isCompleted: false,
                                 );
-
                                 context.read<TodoCubit>().addTask(newTask);
                                 Navigator.pop(context);
                               }

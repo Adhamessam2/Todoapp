@@ -5,7 +5,6 @@ import 'package:todoapp/core/widegts/authgate.dart';
 import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todoLogic.dart';
 import 'package:todoapp/features/auth/cubit/logic.dart';
 import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
-import 'package:todoapp/features/splash_screen/splash.dart';
 import 'package:todoapp/firebase_options.dart';
 
 void main() async {
