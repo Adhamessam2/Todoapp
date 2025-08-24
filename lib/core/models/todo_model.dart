@@ -20,12 +20,10 @@ class TodoModel {
       id: json['id'],
       description: json['description'],
       title: json['title'],
-
-      deadline: DateTime.parse(json['deadline']),
-      isCompleted: json['isCompleted'] ?? false,
       deadline: json['deadline'] is String
           ? DateTime.parse(json['deadline'])
           : (json['deadline'] as Timestamp).toDate(),
+      isCompleted: json['isCompleted'] ?? false,
     );
   }
 
