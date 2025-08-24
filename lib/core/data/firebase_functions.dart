@@ -60,4 +60,8 @@ class FirebaseFunctions {
         .get();
     return AuthModel.fromJson(snapshot.data() as Map<String, dynamic>);
   }
+
+  Future<void> logout() async {
+    await _auth.signOut();
+  }
 }

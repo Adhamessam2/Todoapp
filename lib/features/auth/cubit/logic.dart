@@ -27,4 +27,14 @@ class Authlogic extends Cubit<AuthStates> {
       emit(AuthErrorState(error: error.toString()));
     }
   }
+
+  Future<void> logout() async {
+    emit(AuthLoadingState());
+    try {
+      await _firebaseFunctions.logout();
+      emit(AuthLogout());
+    } catch (error) {
+      emit(AuthErrorState(error: error.toString()));
+    }
+  }
 }

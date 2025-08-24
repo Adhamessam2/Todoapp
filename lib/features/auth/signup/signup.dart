@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/widegts/authgate.dart';
 import 'package:todoapp/features/auth/cubit/logic.dart';
 import 'package:todoapp/features/auth/cubit/states.dart';
 import 'package:todoapp/features/auth/login/login.dart';
@@ -42,7 +43,7 @@ class _SignupscreenState extends State<Signupscreen> {
                 if (state is AuthSuccessState) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    MaterialPageRoute(builder: (context) => Authgate()),
                   );
                 }
                 if (state is AuthErrorState) {

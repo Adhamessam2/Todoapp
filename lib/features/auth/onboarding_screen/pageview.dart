@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:todoapp/features/auth/onboarding_screen/Startscreen2.dart';
-import 'package:todoapp/features/auth/onboarding_screen/Startscreen3.dart';
-import 'package:todoapp/features/auth/onboarding_screen/Startscreen4.dart';
-import 'package:todoapp/features/auth/onboarding_screen/startscreen1.dart';
+
+import 'package:todoapp/features/auth/onboarding_screen/onboarding.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -22,10 +20,29 @@ class _OnboardingState extends State<Onboarding> {
           PageView(
             controller: onboardingcontroller,
             children: [
-              Startscreen1(),
-              Startscreen2(),
-              Startscreen3(),
-              Startscreen4(),
+              Startscreen1(
+                imagepath: 'assets/notepad icon .png',
+                text:
+                    ' Plan your tasks to do, that\n way you’ll stay organized\n and you won’t skip any',
+                lastpage: false,
+              ),
+              Startscreen1(
+                imagepath: 'assets/calendar.png',
+                text:
+                    'Organize your tasks by\n setting due dates and\n priorities',
+                lastpage: false,
+              ),
+              Startscreen1(
+                imagepath: 'assets/team.png',
+                text:
+                    ' create a team task, invite\n people and manage your\n         work together',
+                lastpage: false,
+              ),
+              Startscreen1(
+                imagepath: 'assets/Shield.png',
+                text: ' You informations are\n     secure with us',
+                lastpage: true,
+              ),
             ],
           ),
 

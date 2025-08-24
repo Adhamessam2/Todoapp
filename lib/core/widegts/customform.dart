@@ -29,7 +29,6 @@ class Customtextformfield extends StatelessWidget {
           validator: validator,
           controller: controller,
           obscureText: ispassword,
-
           decoration: InputDecoration(
             hintText: label,
             hintStyle: TextStyle(color: Colors.black),
