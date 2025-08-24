@@ -120,6 +120,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                             title: titleController.text,
                             description: descriptionController.text,
                             deadline: deadline,
+                            depinedOnIt: [],
                           );
 
                           setState(() {
