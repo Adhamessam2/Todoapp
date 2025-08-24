@@ -38,8 +38,6 @@ class _LoginscreenState extends State<Loginscreen> {
                 SizedBox(height: screenSize.height * 0.05),
                 Image.asset('assets/Checkmark.png'),
                 SizedBox(height: screenSize.height * 0.05),
-
-                // Welcome text
                 Padding(
                   padding: EdgeInsets.only(right: screenSize.width * 0.2),
                   child: Column(
@@ -128,9 +126,7 @@ class _LoginscreenState extends State<Loginscreen> {
                     ),
                   ),
                   onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Navigate to home
-                    }
+                    if (_formKey.currentState!.validate()) {}
                   },
                   child: Text(
                     'Login',
@@ -167,7 +163,6 @@ class _LoginscreenState extends State<Loginscreen> {
 
                 SizedBox(height: screenSize.height * 0.05),
 
-                // Social logins
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
