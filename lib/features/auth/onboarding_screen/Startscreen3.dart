@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
-import 'package:todoapp/core/widegts/buttons.dart';
-import 'package:todoapp/features/auth/onboarding_screen/widgets/dashs.dart';
-import 'Startscreen4.dart';
+
 
 class Startscreen3 extends StatefulWidget {
   const Startscreen3({super.key});
