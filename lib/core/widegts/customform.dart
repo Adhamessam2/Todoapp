@@ -5,12 +5,14 @@ class Customtextformfield extends StatelessWidget {
   final IconData? icon;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
+  final bool ispassword;
   const Customtextformfield({
     super.key,
     required this.label,
     required this.icon,
     this.validator,
     this.controller,
+    required this.ispassword,
   });
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,8 @@ class Customtextformfield extends StatelessWidget {
         child: TextFormField(
           validator: validator,
           controller: controller,
+          obscureText: ispassword,
+
           decoration: InputDecoration(
             hintText: label,
             hintStyle: TextStyle(color: Colors.black),

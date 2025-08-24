@@ -100,6 +100,7 @@ class _SignupscreenState extends State<Signupscreen> {
                               }
                               return null;
                             },
+                            ispassword: false,
                           ),
                           SizedBox(height: screenSize.height * 0.02),
                           Customtextformfield(
@@ -116,6 +117,7 @@ class _SignupscreenState extends State<Signupscreen> {
                               }
                               return null;
                             },
+                            ispassword: false,
                           ),
                           SizedBox(height: screenSize.height * 0.02),
                           Customtextformfield(
@@ -131,6 +133,7 @@ class _SignupscreenState extends State<Signupscreen> {
                               }
                               return null;
                             },
+                            ispassword: true,
                           ),
                         ],
                       ),
