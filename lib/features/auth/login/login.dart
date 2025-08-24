@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/widegts/authgate.dart';
 import 'package:todoapp/core/widegts/customform.dart';
 import 'package:todoapp/features/auth/cubit/logic.dart';
 import 'package:todoapp/features/auth/cubit/states.dart';
 import 'package:todoapp/features/auth/onboarding_screen/widgets/icons.dart';
 import 'package:todoapp/features/auth/signup/signup.dart';
-import 'package:todoapp/features/home/presentation/screens/home_screen.dart';
 
 class Loginscreen extends StatefulWidget {
   const Loginscreen({super.key});
@@ -42,7 +42,7 @@ class _LoginscreenState extends State<Loginscreen> {
                 if (state is AuthSuccessState) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    MaterialPageRoute(builder: (context) => Authgate()),
                   );
                 }
               },
