@@ -2,8 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/widegts/authgate.dart';
-import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todoLogic.dart';
+import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todo_cubit.dart';
 import 'package:todoapp/features/auth/cubit/logic.dart';
+import 'package:todoapp/features/auth/login/login.dart';
 import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
 import 'package:todoapp/firebase_options.dart';
 
@@ -23,15 +24,11 @@ class Todoapp extends StatefulWidget {
 class _TodoappState extends State<Todoapp> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => TodoCubit()),
-        BlocProvider(create: (context) => CalendarCubit()),
-        BlocProvider(create: (context) => Authlogic()),
-      ],
-      child: MaterialApp(
-        home: Authgate(),
-        debugShowCheckedModeBanner: false,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: BlocProvider(
+        create: (context) => Authlogic(),
+        child: Loginscreen(),
       ),
     );
   }

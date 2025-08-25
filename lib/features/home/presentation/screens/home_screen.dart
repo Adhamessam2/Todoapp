@@ -1,36 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todoapp/core/widegts/authgate.dart';
-import 'package:todoapp/features/auth/cubit/logic.dart';
-import 'package:todoapp/features/auth/cubit/states.dart';
+import 'package:todoapp/core/widegts/custom_button_nav_bar.dart';
+import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todo_cubit.dart';
+import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
+import 'package:todoapp/features/addTasks/cubit/nav_state.dart';
+import 'package:todoapp/features/addTasks/presentation/addtask_screen.dart';
+import 'package:todoapp/features/calendar/calendar_Screen.dart';
+import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
+
+  final List<Widget> screens = [
+    // HomeScreen(),
+    // AddtaskScreen(),
+    BlocProvider(create: (context) => TodoCubit(), child: AddtaskScreen()),
+
+    BlocProvider(create: (context) => CalendarCubit(), child: CalendarScreen()),
+    // SettingsScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<Authlogic, AuthStates>(
-        listener: (context, state) {
-          if (state is AuthLogout) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Authgate()),
-            );
-          }
-        },
-        builder: (context, state) {
-          final cubit = context.read<Authlogic>();
-          return Center(
-            child: TextButton(
-              onPressed: () {
-                cubit.logout();
-              },
-              child: Text("logout"),
-            ),
-          );
-        },
-      ),
+    return BlocBuilder<NavCubit, NavState>(
+      builder: (context, state) {
+        int currentIndex = 1;
+
+        if (state is NavInitial) currentIndex = state.index;
+        if (state is NavChanged) currentIndex = state.index;
+
+        return Scaffold(
+          body: screens[currentIndex],
+          bottomNavigationBar: const CustomBottomNavBar(),
+        );
+      },
     );
   }
 }
