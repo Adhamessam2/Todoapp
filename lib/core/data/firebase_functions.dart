@@ -10,7 +10,7 @@ class FirebaseFunctions {
     await _firestore.collection("Todos").doc(todo.id).set(todo.toJson());
   }
 
-  Future<List<TodoModel>> getTasks(List<String> todoIdList) async {
+  Future<List<TodoModel>> getTasks(List<dynamic> todoIdList) async {
     List<TodoModel> userTodos = [];
     var usertodos = await _firestore.collection('Todos').get();
     for (var doc in usertodos.docs) {

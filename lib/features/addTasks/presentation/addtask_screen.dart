@@ -1,6 +1,9 @@
 // i made this as an alternative solution
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todoapp/core/models/todo_model.dart';
+import 'package:todoapp/core/models/user_model.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/widegts/todo_tile.dart';
 import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todo_cubit.dart';
 import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todo_status.dart';
@@ -8,17 +11,19 @@ import 'package:todoapp/features/addTasks/widgets/alert_dialog.dart';
 import 'package:todoapp/features/addTasks/widgets/snackbar_custmized.dart';
 
 class AddtaskScreen extends StatelessWidget {
-  AddtaskScreen({super.key});
-  final TextEditingController _ctrl = TextEditingController();
+  AddtaskScreen({super.key, required this.currentUser});
+  final TextEditingController _titleCtrl = TextEditingController();
+  final TextEditingController _desCtrl = TextEditingController();
+  final UserModel currentUser;
+  DateTime deadline = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<TodoCubit, States>(
       builder: (context, state) {
         final cubit = context.read<TodoCubit>();
         return Scaffold(
-          backgroundColor: Colors.blue,
           appBar: AppBar(
-            backgroundColor: Colors.red,
+            backgroundColor: Appcolors.navyblue,
             title: Text(
               "Todo",
               style: TextStyle(
@@ -30,44 +35,53 @@ class AddtaskScreen extends StatelessWidget {
             centerTitle: true,
             elevation: 20,
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Expanded(
-                  child: (state is TodosLoadedState && state.todos.isNotEmpty)
-                      ? ListView.builder(
-                          itemCount: state.todos.length,
-                          itemBuilder: (context, index) {
-                            return TodoTile(
-                              task: state.todos[index],
+          body: Container(
+            decoration: BoxDecoration(gradient: Appcolors.background),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: (state is TodosLoadedState && state.todos.isNotEmpty)
+                        ? ListView.builder(
+                            itemCount: state.todos.length,
+                            itemBuilder: (context, index) {
+                              return TodoTile(
+                                task: state.todos[index],
 
-                              toggol: () {},
-                            );
-                          },
-                        )
-                      : Center(child: Text("No todos yet")),
-                ),
-              ],
+                                toggol: () {},
+                              );
+                            },
+                          )
+                        : Center(child: Text("No todos yet")),
+                  ),
+                ],
+              ),
             ),
           ),
           floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.red,
+            backgroundColor: Appcolors.navyblue,
             onPressed: () async => {
               showDialog(
                 context: context,
                 builder: (context) {
                   return AlertDialogc(
-                    ctrl: _ctrl,
+                    desCtrl: _desCtrl,
+                    titleCtrl: _titleCtrl,
+                    deadline: deadline,
                     addFun: () {
-                      // cubit.updateTodo(TodoModel(
-                      //     task: _ctrl.text,
-                      //     id: DateTime.now()
-                      //         .millisecondsSinceEpoch
-                      //         .toString(),
-                      //     isDone: false));
-                      // _ctrl.clear();
-                      // Navigator.pop(context);
+                      print(deadline);
+                      cubit.updateTodo(
+                        TodoModel(
+                          id: '${currentUser.id}${DateTime.now().millisecond}',
+                          title: _titleCtrl.text,
+                          description: _desCtrl.text,
+                          deadline: deadline,
+                        ),
+                        currentUser.myTodosId,
+                      );
+                      _titleCtrl.clear();
+                      Navigator.pop(context);
                     },
                   );
                 },

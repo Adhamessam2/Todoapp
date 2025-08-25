@@ -1,42 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/features/addTasks/widgets/button.dart';
+import 'package:todoapp/features/addTasks/widgets/custmized_todo_field.dart';
 
 class AlertDialogc extends StatelessWidget {
-  const AlertDialogc({super.key, required this.ctrl, this.addFun});
-  final TextEditingController ctrl;
+  AlertDialogc({
+    super.key,
+    required this.titleCtrl,
+    required this.desCtrl,
+    this.addFun,
+    required this.deadline,
+  });
+  final TextEditingController titleCtrl;
+  DateTime deadline;
+  final TextEditingController desCtrl;
   final addFun;
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
     return AlertDialog(
-      backgroundColor: Colors.red,
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       content: SizedBox(
-        height: 200,
+        height: height,
         child: Column(
           children: [
-            TextField(
-              style: TextStyle(color: Colors.black),
-              controller: ctrl,
-              decoration: InputDecoration(
-                fillColor: Colors.brown,
-                labelText: "Type your taske here",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: const Color.fromARGB(255, 255, 255, 255),
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+            CustmizedTodoField(ctrl: titleCtrl),
+            SizedBox(height: 5),
+            CustmizedTodoField(ctrl: desCtrl),
+            SizedBox(height: 15),
+            SizedBox(
+              height: 300,
+              width: 300,
+              child: CalendarDatePicker(
+                initialDate: DateTime.now(),
+                firstDate: DateTime(2010),
+                lastDate: DateTime(2030),
+                onDateChanged: (value) {
+                  deadline = value;
+                  print(deadline);
+                },
               ),
             ),
-            SizedBox(height: 15),
             Button(addFun: addFun),
           ],
         ),
       ),
-      title: Text("Add Taske"),
+      title: Text("Add Task"),
     );
   }
 }

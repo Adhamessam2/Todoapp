@@ -10,21 +10,22 @@ class TodoCubit extends Cubit<States> {
     loadTodos();
   }
 
-  // Future updateTodo(TodoModel todo) async {
-  //   if (todo.title.isNotEmpty) {
-  //     db.updateTodo(todo);
-  //     todos = db.getTodo();
-  //     emit(UpdateTodo(todos: todos));
-  //   } else {
-  //     emit(TodosError(error: "The taske can't be Empty"));
-  //   }
-  // }
+  Future updateTodo(TodoModel todo, List<dynamic> todoIdList) async {
+    if (todo.title.isNotEmpty) {
+      _db.addTask(todo);
+      todos = await _db.getTasks(todoIdList);
+      emit(UpdateTodo(todos: todos));
+    } else {
+      emit(TodosError(error: "The taske can't be Empty"));
+    }
+  }
 
   Future<void> loadTodos() async {
     // todos = await _db.getTasks();
     emit(TodosLoadedState(todos: todos));
   }
 
+  void addTask(TodoModel) {}
   // void toggle(String id) {
   //   if (id.isNotEmpty) {
   //     final index = todos.indexWhere((todo) => todo.id == id);
