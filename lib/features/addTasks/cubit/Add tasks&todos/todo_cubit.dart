@@ -21,7 +21,7 @@ class TodoCubit extends Cubit<States> {
   // }
 
   Future<void> loadTodos() async {
-    todos = await _db.getTasks();
+    // todos = await _db.getTasks();
     emit(TodosLoadedState(todos: todos));
   }
 

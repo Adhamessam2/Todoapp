@@ -17,7 +17,7 @@ class CalendarCubit extends Cubit<CalendarStatus> {
 
   Future<void> showTasks(DateTime day) async {
     List<TodoModel> userTodosBytime = [];
-    userTodos = await FirebaseFunctions().getTasks();
+    // userTodos = await FirebaseFunctions().getTasks();
     for (var todo in userTodos) {
       String daedlin = todo.deadline.toString().split(' ')[0];
       daedlin == day.toString().split(' ')[0]
