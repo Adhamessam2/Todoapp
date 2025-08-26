@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
-import 'package:todoapp/core/widegts/todo_tile.dart';
-import 'package:todoapp/features/home/cubit/home_cubit.dart';
-import 'package:todoapp/features/home/cubit/home_status.dart';
+import 'package:todoapp/core/widgets/todo_tile.dart';
+import 'package:todoapp/features/home/cubit/home/home_cubit.dart';
+import 'package:todoapp/features/home/cubit/home/home_status.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
@@ -46,10 +46,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: state.todos.length,
                             itemBuilder: (context, index) {
                               return TodoTile(
-                                task: state.todos[index],
-                                toggol: () {
-                                  // cubit.toggleTodo(state.todos[index]);
-                                },
+                                task: state.todos[index].title,
+                                isDone: state.todos[index].isCompleted,
+                                onTap: () {},
+                                onSlid: (BuildContext context) {},
                               );
                             },
                           )

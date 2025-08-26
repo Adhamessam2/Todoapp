@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todoapp/core/models/group_model.dart';
 import 'package:todoapp/core/models/todo_model.dart';
 import 'package:todoapp/core/models/user_model.dart';
 
@@ -82,7 +83,38 @@ class FirebaseFunctions {
     return currentUSer;
   }
 
+  Future<UserModel> getUserByID(String id) async {
+    try {
+      DocumentSnapshot snapshot = await _firestore
+          .collection('users')
+          .doc(id)
+          .get();
+      UserModel userById = UserModel.fromJson(
+        snapshot.data() as Map<String, dynamic>,
+      );
+      print("object");
+      return userById;
+    } catch (e) {
+      return UserModel(
+        username: '',
+        email: "",
+        id: "",
+        finshedTodos: 0,
+        myTodosId: [],
+      );
+    }
+  }
+
   Future<void> logout() async {
     await _auth.signOut();
+  }
+
+  Future<void> addGroup(GroupModel group) async {
+    UserModel currentUser = await getCurrentUser();
+    currentUser.myTodosId;
+    await _firestore
+        .collection("Groups")
+        .doc(group.groupId)
+        .set(group.toJson());
   }
 }

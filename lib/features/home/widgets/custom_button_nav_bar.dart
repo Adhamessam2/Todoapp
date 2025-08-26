@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
-import 'package:todoapp/features/home/cubit/nav_cubit.dart';
-import 'package:todoapp/features/home/cubit/nav_state.dart';
+import 'package:todoapp/features/home/cubit/nav/nav_cubit.dart';
+import 'package:todoapp/features/home/cubit/nav/nav_state.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({super.key});

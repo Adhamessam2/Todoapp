@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
-import 'package:todoapp/core/widegts/authgate.dart';
-import 'package:todoapp/features/home/cubit/nav_cubit.dart';
-import 'package:todoapp/features/home/cubit/home_cubit.dart';
+import 'package:todoapp/core/widgets/authgate.dart';
+import 'package:todoapp/features/home/cubit/nav/nav_cubit.dart';
+import 'package:todoapp/features/home/cubit/home/home_cubit.dart';
 import 'package:todoapp/features/home/presentation/screens/main_screen.dart';
 
 import '../cubit/auth_logic.dart';

@@ -2,10 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/models/todo_model.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/widgets/button.dart';
+import 'package:todoapp/core/widgets/custmized_text_field.dart';
 import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todo_cubit.dart';
 import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todo_status.dart';
-import 'package:todoapp/features/addTasks/widgets/button.dart';
-import 'package:todoapp/features/addTasks/widgets/custmized_todo_field.dart';
 
 class AddtaskScreen extends StatelessWidget {
   AddtaskScreen({super.key});
@@ -15,18 +16,25 @@ class AddtaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return BlocConsumer<TodoCubit, States>(
       builder: (context, state) {
         final cubit = context.read<TodoCubit>();
-        return AlertDialog(
-          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          content: SizedBox(
-            height: height,
+        return Container(
+          decoration: BoxDecoration(gradient: Appcolors.background),
+          child: Padding(
+            padding: EdgeInsets.all(width * 0.07),
             child: Column(
+              spacing: height * 0.02,
               children: [
-                CustmizedTodoField(ctrl: _titleCtrl),
+                SizedBox(height: height * 0.03),
+                Text(
+                  "Adding new Task",
+                  style: TextStyle(fontSize: 32, color: Colors.white),
+                ),
+                CustmizedTextField(ctrl: _titleCtrl, lable: "Task Title"),
                 SizedBox(height: 5),
-                CustmizedTodoField(ctrl: _desCtrl),
+                CustmizedTextField(ctrl: _desCtrl, lable: "Taks Description"),
                 SizedBox(height: 15),
                 SizedBox(
                   height: 300,
@@ -41,6 +49,8 @@ class AddtaskScreen extends StatelessWidget {
                   ),
                 ),
                 Button(
+                  lable: 'add task',
+                  size: 'big',
                   addFun: () {
                     cubit.addTask(
                       TodoModel(
@@ -55,7 +65,6 @@ class AddtaskScreen extends StatelessWidget {
               ],
             ),
           ),
-          title: Text("Add Task"),
         );
       },
       listener: (context, state) {},

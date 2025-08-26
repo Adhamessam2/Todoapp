@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
 
 class TodoTile extends StatelessWidget {
   const TodoTile({
@@ -25,14 +26,14 @@ class TodoTile extends StatelessWidget {
             SlidableAction(
               onPressed: onSlid,
               icon: Icons.delete,
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.black,
             ),
           ],
         ),
         child: Container(
           padding: EdgeInsets.all(width * 0.03),
           decoration: BoxDecoration(
-            color: Colors.red,
+            color: Appcolors.lightblue,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -42,8 +43,8 @@ class TodoTile extends StatelessWidget {
                 onChanged: (bool? newValue) {
                   onTap();
                 },
-                checkColor: Colors.black,
-                activeColor: Colors.white,
+                checkColor: Appcolors.blue,
+                activeColor: Appcolors.navyblue,
               ),
               SizedBox(
                 width: width * 0.7,
@@ -53,7 +54,7 @@ class TodoTile extends StatelessWidget {
                     decoration: isDone
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
-                    decorationColor: Colors.red,
+                    decorationColor: Appcolors.lightblue,
                     decorationStyle: TextDecorationStyle.solid,
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
