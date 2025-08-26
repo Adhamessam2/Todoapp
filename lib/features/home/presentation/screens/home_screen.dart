@@ -1,55 +1,67 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todoapp/core/models/user_model.dart';
-import 'package:todoapp/core/widegts/custom_button_nav_bar.dart';
-import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todo_cubit.dart';
-import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
-import 'package:todoapp/features/addTasks/cubit/nav_state.dart';
-import 'package:todoapp/features/addTasks/presentation/addtask_screen.dart';
-import 'package:todoapp/features/calendar/calendar_Screen.dart';
-import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/widegts/todo_tile.dart';
+import 'package:todoapp/features/home/cubit/home_cubit.dart';
+import 'package:todoapp/features/home/cubit/home_status.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key, required this.user});
-  final UserModel user;
-  final List<Widget> screens = [
-    // BlocProvider(
-    //   create: (context) => NavCubit(),
-    //   child: HomeScreen(user: ),
-    // ),
-    BlocProvider(create: (context) => CalendarCubit(), child: CalendarScreen()),
-    BlocProvider(create: (context) => CalendarCubit(), child: CalendarScreen()),
-    BlocProvider(
-      create: (context) => TodoCubit(),
-      child: AddtaskScreen(
-        currentUser: UserModel(
-          username: 'Soliman Ragab',
-          email: 'ragabsoliman@gmail.com',
-          id: '',
-          finshedTodos: 0,
-          myTodosId: [],
-        ),
-      ),
-    ),
+// ignore: must_be_immutable
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
 
-    BlocProvider(create: (context) => CalendarCubit(), child: CalendarScreen()),
-  ];
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late HomeCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavCubit, NavState>(
+    return BlocConsumer<HomeCubit, HomeStatus>(
       builder: (context, state) {
-        int currentIndex = 1;
-
-        if (state is NavInitial) currentIndex = state.index;
-        if (state is NavChanged) currentIndex = state.index;
-
         return Scaffold(
-          body: screens[currentIndex],
-          bottomNavigationBar: const CustomBottomNavBar(),
+          appBar: AppBar(
+            backgroundColor: Appcolors.navyblue,
+            title: const Text(
+              "Todo",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+            centerTitle: true,
+            elevation: 20,
+          ),
+          body: Container(
+            decoration: BoxDecoration(gradient: Appcolors.background),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: (state is TodosLoadedState && state.todos.isNotEmpty)
+                        ? ListView.builder(
+                            itemCount: state.todos.length,
+                            itemBuilder: (context, index) {
+                              return TodoTile(
+                                task: state.todos[index],
+                                toggol: () {
+                                  // cubit.toggleTodo(state.todos[index]);
+                                },
+                              );
+                            },
+                          )
+                        : const Center(child: Text("No todos yet")),
+                  ),
+                ],
+              ),
+            ),
+          ),
         );
       },
+      listener: (context, state) {},
     );
   }
 }

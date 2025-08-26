@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todoapp/core/widegts/authgate.dart';
 import 'package:todoapp/features/auth/cubit/auth_logic.dart';
 import 'package:todoapp/features/auth/login/login_screen.dart';
 import 'package:todoapp/firebase_options.dart';
@@ -25,10 +26,7 @@ class _TodoappState extends State<Todoapp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (context) => AuthCubit(),
-        child: LoginScreen(),
-      ),
+      home: BlocProvider(create: (context) => AuthCubit(), child: Authgate()),
     );
   }
 }

@@ -7,17 +7,24 @@ class FirebaseFunctions {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Future<void> addTask(TodoModel todo) async {
+    UserModel currentUser = await getCurrentUser();
+    currentUser.myTodosId.add(todo.id);
     await _firestore.collection("Todos").doc(todo.id).set(todo.toJson());
+    await _firestore.collection('users').doc(currentUser.id).update({
+      'myTodosId': currentUser.myTodosId,
+    });
   }
 
-  Future<List<TodoModel>> getTasks(List<dynamic> todoIdList) async {
+  Future<List<TodoModel>> getTasks() async {
+    UserModel currentUSer = await getCurrentUser();
     List<TodoModel> userTodos = [];
     var usertodos = await _firestore.collection('Todos').get();
     for (var doc in usertodos.docs) {
-      (todoIdList.contains(doc.data()['id']))
+      (currentUSer.myTodosId.contains(doc.data()['id']))
           ? userTodos.add(TodoModel.fromJson(doc.data()))
           : null;
     }
+
     return userTodos;
   }
 
@@ -53,6 +60,18 @@ class FirebaseFunctions {
     );
 
     User user = userdata.user!;
+    DocumentSnapshot snapshot = await _firestore
+        .collection('users')
+        .doc(user.uid)
+        .get();
+    UserModel currentUSer = UserModel.fromJson(
+      snapshot.data() as Map<String, dynamic>,
+    );
+    return currentUSer;
+  }
+
+  Future<UserModel> getCurrentUser() async {
+    User user = _auth.currentUser!;
     DocumentSnapshot snapshot = await _firestore
         .collection('users')
         .doc(user.uid)

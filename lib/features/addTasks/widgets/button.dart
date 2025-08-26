@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   const Button({super.key, required this.addFun});
-  final VoidCallback addFun;
+  final Function addFun;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: addFun,
+      onTap: () {
+        addFun();
+
+        print('---------------------');
+      },
       child: Container(
         height: 50,
         width: 150,

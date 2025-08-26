@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
-import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
+import 'package:todoapp/core/widegts/authgate.dart';
+import 'package:todoapp/features/home/cubit/nav_cubit.dart';
 import 'package:todoapp/features/auth/cubit/auth_logic.dart';
 import 'package:todoapp/features/auth/cubit/auth_state.dart';
-import 'package:todoapp/features/home/cubit/home_cubit.dart';
-import 'package:todoapp/features/home/presentation/screens/home_screen.dart';
+import 'package:todoapp/features/home/presentation/screens/main_screen.dart';
 
 import '../signup/signup_screen.dart';
 import '../widgets/custom_button.dart';
@@ -102,14 +102,9 @@ class LoginScreen extends StatelessWidget {
             },
             listener: (context, state) {
               if (state is AuthSuccess) {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => BlocProvider(
-                      create: (context) => NavCubit(),
-                      child: HomeScreen(user: state.user),
-                    ),
-                  ),
+                  MaterialPageRoute(builder: (context) => Authgate()),
                 );
               }
             },
