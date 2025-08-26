@@ -51,9 +51,9 @@ class AddGroupScreen extends StatelessWidget {
                     value: null, // أو قيمة محددة من الـ list
                     hint: Text("Show member"),
                     items: (state is AddMember)
-                        ? state.membersUsername.map((id) {
+                        ? state.members.map((member) {
                             return DropdownMenuItem<String>(
-                              value: id,
+                              value: member.id,
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.blue,
@@ -70,48 +70,12 @@ class AddGroupScreen extends StatelessWidget {
                                       icon: Center(child: Icon(Icons.person)),
                                     ),
                                     Text(
-                                      id,
+                                      member.username,
                                       style: TextStyle(color: Colors.amber),
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        cubit.deleteMember(id);
-                                      },
-                                      icon: Center(
-                                        child: Icon(Icons.cancel_outlined),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }).toList()
-                        : (state is DeleteMember)
-                        ? state.membersId.map((id) {
-                            return DropdownMenuItem<String>(
-                              value: id,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                margin: EdgeInsets.all(4),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: Center(child: Icon(Icons.person)),
-                                    ),
-                                    Text(
-                                      id,
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        cubit.deleteMember(id);
+                                        cubit.deleteMember(member.id);
                                       },
                                       icon: Center(
                                         child: Icon(Icons.cancel_outlined),

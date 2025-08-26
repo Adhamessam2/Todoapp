@@ -1,4 +1,5 @@
 import 'package:todoapp/core/models/todo_model.dart';
+import 'package:todoapp/core/models/user_model.dart';
 
 abstract class GroupStatus {}
 
@@ -10,15 +11,15 @@ class AddGroup extends GroupStatus {
 }
 
 class AddMember extends GroupStatus {
-  final List<String> membersUsername;
+  final List<UserModel> members;
 
-  AddMember({required this.membersUsername});
+  AddMember({required this.members});
 }
 
 class DeleteMember extends GroupStatus {
-  final List<String> membersId;
+  final List<UserModel> members;
 
-  DeleteMember({required this.membersId});
+  DeleteMember({required this.members});
 }
 
 class CreateGroup extends GroupStatus {}
