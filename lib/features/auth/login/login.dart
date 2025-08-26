@@ -108,7 +108,7 @@ class _LoginscreenState extends State<Loginscreen> {
                                 return 'Please enter your password';
                               }
                               if (passwordController.text.length < 6) {
-                                return 'Please enter a valid password';
+                                return 'Password must be at least 6 characters';
                               }
                               return null;
                             },

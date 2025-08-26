@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:todoapp/core/models/todo_model.dart';
 import 'package:todoapp/core/models/user_model.dart';
-import 'package:todoapp/features/auth/models/authmodel.dart';
 
 class FirebaseFunctions {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -30,25 +28,31 @@ class FirebaseFunctions {
     return userTodos;
   }
 
-  Future<AuthModel> signup(String name, String email, String password) async {
+  Future<UserModel> signup(String name, String email, String password) async {
     UserCredential userdata = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
     User user = userdata.user!;
-    AuthModel authModel = AuthModel(name: name, email: email, id: user.uid);
+    UserModel userModel = UserModel(
+      username: name,
+      email: email,
+      id: user.uid,
+      finshedTodos: 0,
+      myTodosId: [],
+    );
     try {
       await _firestore
           .collection('users')
           .doc(user.uid)
-          .set(authModel.toJson());
+          .set(userModel.toJson());
     } catch (e) {
       print(e);
     }
-    return authModel;
+    return userModel;
   }
 
-  Future<AuthModel> login(String email, String password) async {
+  Future<UserModel> login(String email, String password) async {
     UserCredential userdata = await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
@@ -58,7 +62,7 @@ class FirebaseFunctions {
         .collection('users')
         .doc(user.uid)
         .get();
-    return AuthModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    return UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
   }
 
   Future<void> logout() async {

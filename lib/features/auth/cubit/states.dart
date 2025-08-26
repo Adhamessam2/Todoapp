@@ -1,4 +1,4 @@
-import 'package:todoapp/features/auth/models/authmodel.dart';
+import 'package:todoapp/core/models/user_model.dart';
 
 abstract class AuthStates {}
 
@@ -7,7 +7,7 @@ class AuthInitialState extends AuthStates {}
 class AuthLoadingState extends AuthStates {}
 
 class AuthSuccessState extends AuthStates {
-  final AuthModel authModel;
+  final UserModel authModel;
   AuthSuccessState({required this.authModel});
 }
 

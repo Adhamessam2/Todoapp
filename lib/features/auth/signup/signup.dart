@@ -5,7 +5,6 @@ import 'package:todoapp/core/widegts/authgate.dart';
 import 'package:todoapp/features/auth/cubit/logic.dart';
 import 'package:todoapp/features/auth/cubit/states.dart';
 import 'package:todoapp/features/auth/login/login.dart';
-import 'package:todoapp/features/home/presentation/screens/home_screen.dart';
 import '../../../core/widegts/customform.dart';
 import '../onboarding_screen/widgets/icons.dart';
 
