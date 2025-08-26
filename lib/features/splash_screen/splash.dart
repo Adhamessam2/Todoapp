@@ -29,7 +29,7 @@ class _SplashscreenState extends State<Splashscreen> {
 
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Appcolors.blue, Appcolors.navyblue],
+            colors: [Appcolors.secColor, Appcolors.primaryColor],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

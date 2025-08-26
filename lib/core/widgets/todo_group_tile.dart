@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 
-class TodoTile extends StatelessWidget {
-  const TodoTile({
+class TodoGroupTile extends StatelessWidget {
+  const TodoGroupTile({
     super.key,
     required this.isDone,
     required this.onTap,
     required this.task,
     required this.onSlid,
+    required this.todoOwner,
   });
   final bool isDone;
   final String task;
+  final String todoOwner;
   final VoidCallback onTap;
   final SlidableActionCallback onSlid;
   @override

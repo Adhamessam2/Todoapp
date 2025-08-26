@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
-import 'package:todoapp/core/style_manegares/commonstyle.dart';
+import 'package:todoapp/core/style_manegares/text_style.dart';
 import 'package:todoapp/features/auth/cubit/auth_logic.dart';
 import 'package:todoapp/features/auth/login/login_screen.dart';
 
@@ -24,7 +24,7 @@ class Startscreen1 extends StatelessWidget {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Appcolors.blue, Appcolors.navyblue],
+            colors: [Appcolors.secColor, Appcolors.primaryColor],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -37,7 +37,7 @@ class Startscreen1 extends StatelessWidget {
               child: Image.asset(imagepath),
             ),
             SizedBox(height: 40),
-            Text(text, style: Customstyle.mystyle),
+            Text(text, style: CustmizedTextStyle.headerText),
             SizedBox(height: 200),
             if (lastpage)
               Padding(

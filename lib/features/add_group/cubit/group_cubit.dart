@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/data/firebase_functions.dart';
 import 'package:todoapp/core/models/group_model.dart';
-import 'package:todoapp/core/models/todo_model.dart';
 import 'package:todoapp/core/models/user_model.dart';
 import 'package:todoapp/features/add_group/cubit/group_status.dart';
 
@@ -44,7 +43,8 @@ class GroupCubit extends Cubit<GroupStatus> {
     if (groupName.isEmpty || groupDes.isEmpty || !validate) {
       emit(AddError(error: "groupe feilds can't be empty"));
     } else {
-      addMembers(user.id);
+      members.add(user);
+      membersId.add(user.id);
       _db.addGroup(
         GroupModel(
           groupId: "${user.id}${DateTime.now().microsecond}",
@@ -52,6 +52,7 @@ class GroupCubit extends Cubit<GroupStatus> {
           groupDescription: groupDes,
           membersID: membersId,
           tasksID: [],
+          adminsID: [user.id],
         ),
       );
       members = [];
@@ -59,5 +60,10 @@ class GroupCubit extends Cubit<GroupStatus> {
       emit(CreateGroup());
       validate = false;
     }
+  }
+
+  Future<void> getGroups() async {
+    List<GroupModel> groups = await _db.getGroups();
+    emit(LoadingGroups(groups: groups));
   }
 }

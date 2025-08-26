@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/widgets/authgate.dart';
 import 'package:todoapp/features/auth/cubit/auth_logic.dart';
-import 'package:todoapp/features/auth/login/login_screen.dart';
 import 'package:todoapp/firebase_options.dart';
 
 void main() async {

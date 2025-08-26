@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
-import 'package:todoapp/core/style_manegares/commonstyle.dart';
+import 'package:todoapp/core/style_manegares/text_style.dart';
 import 'package:todoapp/core/widgets/authgate.dart';
-import 'package:todoapp/features/home/cubit/nav/nav_cubit.dart';
 import 'package:todoapp/features/auth/cubit/auth_logic.dart';
 import 'package:todoapp/features/auth/cubit/auth_state.dart';
-import 'package:todoapp/features/home/presentation/screens/main_screen.dart';
-
 import '../signup/signup_screen.dart';
 import '../widgets/custom_button.dart';
 import '../widgets/custom_textfeild.dart';
@@ -36,7 +33,7 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 40),
-                      Text('login', style: Customstyle.mystyle),
+                      Text('login', style: CustmizedTextStyle.headerText),
                       SizedBox(height: 40),
                       CustomTextfaield(
                         controller: emailController,
@@ -82,7 +79,9 @@ class LoginScreen extends StatelessWidget {
                           },
                           child: Text(
                             'Create an account',
-                            style: Customstyle.mystyle.copyWith(fontSize: 15),
+                            style: CustmizedTextStyle.headerText.copyWith(
+                              fontSize: 15,
+                            ),
                           ),
                         ),
                       ),

@@ -23,8 +23,8 @@ class CustomBottomNavBar extends StatelessWidget {
           },
           type: BottomNavigationBarType.fixed,
 
-          backgroundColor: Appcolors.navyblue,
-          selectedItemColor: Color(0xff76D5EA40),
+          backgroundColor: Appcolors.primaryColor,
+          selectedItemColor: Appcolors.secColor,
           unselectedItemColor: Colors.white,
 
           showSelectedLabels: true,

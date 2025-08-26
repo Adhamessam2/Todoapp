@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/features/add_group/cubit/group_cubit.dart';
 import 'package:todoapp/features/add_group/presentation/add_group_screen.dart';
+import 'package:todoapp/features/add_group/presentation/groups_screen.dart';
 import 'package:todoapp/features/settings/widgets/option_widget.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: Text("Settings", style: TextStyle(color: Colors.white)),
         centerTitle: true,
-        backgroundColor: Appcolors.navyblue,
+        backgroundColor: Appcolors.primaryColor,
       ),
       body: Container(
         decoration: BoxDecoration(gradient: Appcolors.background),
@@ -34,7 +35,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => BlocProvider(
-                      create: (context) => GroupCubit(),
+                      create: (context) => GroupCubit()..getGroups(),
+                      child: GroupesScreen(),
+                    ),
+                  ),
+                );
+              },
+            ),
+            OptionsWidget(
+              icon: Icons.group,
+              title: "Add Groups",
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider(
+                      create: (context) => GroupCubit()..getGroups(),
                       child: AddGroupScreen(),
                     ),
                   ),

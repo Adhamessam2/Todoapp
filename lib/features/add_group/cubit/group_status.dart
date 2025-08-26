@@ -1,13 +1,14 @@
-import 'package:todoapp/core/models/todo_model.dart';
+import 'package:todoapp/core/models/group_model.dart';
 import 'package:todoapp/core/models/user_model.dart';
 
 abstract class GroupStatus {}
 
 class GInitialState extends GroupStatus {}
 
-class AddGroup extends GroupStatus {
-  final List<TodoModel> todos;
-  AddGroup({required this.todos});
+class LoadingGroups extends GroupStatus {
+  final List<GroupModel> groups;
+
+  LoadingGroups({required this.groups});
 }
 
 class AddMember extends GroupStatus {

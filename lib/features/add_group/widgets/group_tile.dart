@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/style_manegares/text_style.dart';
 
-class OptionsWidget extends StatelessWidget {
-  const OptionsWidget({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.onTap,
-  });
-  final IconData icon;
-  final String title;
+class GroupTile extends StatelessWidget {
+  const GroupTile({super.key, required this.onTap, required this.title});
   final VoidCallback onTap;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.all(12),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           boxShadow: [
@@ -25,18 +19,13 @@ class OptionsWidget extends StatelessWidget {
               spreadRadius: 2,
               blurRadius: BorderSide.strokeAlignOutside,
               blurStyle: BlurStyle.normal,
-              offset: Offset(5, 6), // X, Y position
+              offset: Offset(5, 6),
             ),
           ],
-          color: Appcolors.secColor,
           borderRadius: BorderRadius.circular(12),
+          color: Appcolors.primaryColor,
         ),
-        child: Row(
-          children: [
-            Icon(icon, size: 40, color: Colors.white),
-            Text(title, style: TextStyle(color: Colors.white, fontSize: 24)),
-          ],
-        ),
+        child: Center(child: Text(title, style: CustmizedTextStyle.headerText)),
       ),
     );
   }
