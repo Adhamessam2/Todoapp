@@ -1,7 +1,7 @@
 class UserModel {
   final String username, email, id;
   final int finshedTodos;
-  List<String> myTodosId = [];
+  List<dynamic> myTodosId = [];
 
   Map<String, dynamic> toJson() {
     return {
@@ -14,13 +14,14 @@ class UserModel {
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
+    UserModel newUser = UserModel(
       id: json['id'],
       email: json['email'],
-      username: json['name'],
-      finshedTodos: json['finshedTodos'],
+      username: json['username'],
       myTodosId: json['myTodosId'] ?? [],
+      finshedTodos: json['finshedTodos'] as int,
     );
+    return newUser;
   }
 
   UserModel({

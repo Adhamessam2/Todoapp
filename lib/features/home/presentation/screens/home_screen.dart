@@ -1,36 +1,67 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todoapp/core/widegts/authgate.dart';
-import 'package:todoapp/features/auth/cubit/logic.dart';
-import 'package:todoapp/features/auth/cubit/states.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/core/widegts/todo_tile.dart';
+import 'package:todoapp/features/home/cubit/home_cubit.dart';
+import 'package:todoapp/features/home/cubit/home_status.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+// ignore: must_be_immutable
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late HomeCubit cubit;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<Authlogic, AuthStates>(
-        listener: (context, state) {
-          if (state is AuthLogout) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Authgate()),
-            );
-          }
-        },
-        builder: (context, state) {
-          final cubit = context.read<Authlogic>();
-          return Center(
-            child: TextButton(
-              onPressed: () {
-                cubit.logout();
-              },
-              child: Text("logout"),
+    return BlocConsumer<HomeCubit, HomeStatus>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Appcolors.navyblue,
+            title: const Text(
+              "Todo",
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
             ),
-          );
-        },
-      ),
+            centerTitle: true,
+            elevation: 20,
+          ),
+          body: Container(
+            decoration: BoxDecoration(gradient: Appcolors.background),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: (state is TodosLoadedState && state.todos.isNotEmpty)
+                        ? ListView.builder(
+                            itemCount: state.todos.length,
+                            itemBuilder: (context, index) {
+                              return TodoTile(
+                                task: state.todos[index],
+                                toggol: () {
+                                  // cubit.toggleTodo(state.todos[index]);
+                                },
+                              );
+                            },
+                          )
+                        : const Center(child: Text("No todos yet")),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+      listener: (context, state) {},
     );
   }
 }

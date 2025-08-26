@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todoapp/core/widegts/custom_button_nav_bar.dart';
-import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
-import 'package:todoapp/features/addTasks/cubit/nav_state.dart';
-import 'package:todoapp/features/addTasks/presentation/add_task_screen.dart';
+import 'package:todoapp/core/models/user_model.dart';
+import 'package:todoapp/features/home/widgets/custom_button_nav_bar.dart';
+import 'package:todoapp/features/addTasks/cubit/Add%20tasks&todos/todo_cubit.dart';
+import 'package:todoapp/features/home/cubit/nav_cubit.dart';
+import 'package:todoapp/features/home/cubit/nav_state.dart';
+import 'package:todoapp/features/addTasks/presentation/addtask_screen.dart';
 import 'package:todoapp/features/calendar/calendar_Screen.dart';
 import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
+import 'package:todoapp/features/home/cubit/home_cubit.dart';
 import 'package:todoapp/features/home/presentation/screens/home_screen.dart';
 
-class MainScreen extends StatelessWidget {
-  MainScreen({super.key});
-
+class NavigationScreen extends StatelessWidget {
+  NavigationScreen({super.key, required this.user});
+  final UserModel user;
   final List<Widget> screens = [
-    const HomeScreen(),
-    const AddTaskScreen(),
+    BlocProvider(
+      create: (context) => HomeCubit()..loadTodos(),
+      child: HomeScreen(),
+    ),
+    BlocProvider(create: (context) => TodoCubit(), child: AddtaskScreen()),
     BlocProvider(create: (context) => CalendarCubit(), child: CalendarScreen()),
-    // SettingsScreen(),
+    BlocProvider(create: (context) => CalendarCubit(), child: CalendarScreen()),
   ];
 
   @override

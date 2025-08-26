@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:todoapp/features/onboarding_screen/onboarding.dart';
 
-import 'package:todoapp/features/auth/onboarding_screen/onboarding.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});

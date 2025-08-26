@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
-import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
-import 'package:todoapp/features/addTasks/cubit/nav_state.dart';
+import 'package:todoapp/features/home/cubit/nav_cubit.dart';
+import 'package:todoapp/features/home/cubit/nav_state.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({super.key});
@@ -23,7 +23,6 @@ class CustomBottomNavBar extends StatelessWidget {
           },
           type: BottomNavigationBarType.fixed,
 
-          // 🎨 الألوان
           backgroundColor: Appcolors.navyblue,
           selectedItemColor: Color(0xff76D5EA40),
           unselectedItemColor: Colors.white,
@@ -32,7 +31,10 @@ class CustomBottomNavBar extends StatelessWidget {
           showUnselectedLabels: true,
           items: const [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.list_alt), label: 'Tasks'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.list_alt),
+              label: 'Add Tasks',
+            ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_today),
               label: 'Calendar',

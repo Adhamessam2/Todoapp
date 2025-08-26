@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/style_manegares/commonstyle.dart';
-import 'package:todoapp/features/auth/login/login.dart';
+import 'package:todoapp/features/auth/cubit/auth_logic.dart';
+import 'package:todoapp/features/auth/login/login_screen.dart';
 
 class Startscreen1 extends StatelessWidget {
   final String imagepath;
@@ -65,7 +67,10 @@ class Startscreen1 extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Loginscreen(),
+                                builder: (context) => BlocProvider(
+                                  create: (context) => AuthCubit(),
+                                  child: LoginScreen(),
+                                ),
                               ),
                             );
                           },
