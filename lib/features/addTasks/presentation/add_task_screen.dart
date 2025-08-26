@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/models/todo_model.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
-import 'package:todoapp/features/addTasks/cubit/Add tasks&todos/todoLogic.dart';
-import 'package:todoapp/features/addTasks/cubit/Add tasks&todos/todoStates.dart';
+import 'package:todoapp/features/addTasks/cubit/add_tasks_todos/todo_logic.dart';
+import 'package:todoapp/features/addTasks/cubit/add_tasks_todos/todo_states.dart';
+import 'package:todoapp/features/addTasks/presentation/task_details_screen.dart';
 
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
@@ -14,6 +15,7 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   int _selectedIndex = 0;
+  String sortBy = "Date";
 
   void _openAddTaskDialog() {
     final titleController = TextEditingController();
@@ -169,7 +171,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               if (titleController.text.isNotEmpty &&
                                   descriptionController.text.isNotEmpty &&
                                   selectedDate != null &&
@@ -188,9 +190,39 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                                   description: descriptionController.text,
                                   deadline: deadline,
                                   isCompleted: false,
+                                  todos: [], // Initialize with empty todos list
                                 );
-                                context.read<TodoCubit>().addTask(newTask);
-                                Navigator.pop(context);
+                                
+                                // Show loading indicator
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) => const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                );
+                                
+                                try {
+                                  await context.read<TodoCubit>().addTask(newTask);
+                                  Navigator.pop(context); // Close loading dialog
+                                  Navigator.pop(context); // Close add task dialog
+                                  
+                                  // Show success message
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Task added successfully!'),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                } catch (e) {
+                                  Navigator.pop(context); // Close loading dialog
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Error adding task: $e'),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                }
                               }
                             },
                             child: const Text("create", style: TextStyle(color: Colors.white)),
@@ -213,7 +245,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return Scaffold(
       backgroundColor: Appcolors.navyblue,
       appBar: AppBar(
-        title: const Text("My Tasks", style: TextStyle(color: Colors.white)),
+        title: const Text("My tasks", style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.w900,
+        )),
+        centerTitle: true,
         backgroundColor: Appcolors.navyblue,
       ),
       body: BlocBuilder<TodoCubit, TodoState>(
@@ -254,34 +291,23 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           child: DropdownButton<String>(
                             dropdownColor: Appcolors.navyblue,
                             style: const TextStyle(color: Colors.white),
-                            icon: const Icon(Icons.arrow_drop_down, color: Colors.white),
-                            value: "Date",
+                            icon: const Icon(Icons.arrow_drop_down_circle_rounded, color: Colors.white),
+                            value: sortBy,
                             items: const [
                               DropdownMenuItem(
                                 value: "Date",
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.sort, color: Colors.white),
-                                    SizedBox(width: 5),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 12),
-                                      child: Text("Sort By :"),
-                                    ),
-                                  ],
-                                ),
+                                child: Text("Sort By: Date"),
                               ),
                               DropdownMenuItem(
                                 value: "Title",
-                                child: Row(
-                                  children: [
-                                    Icon(Icons.sort_by_alpha, color: Colors.white),
-                                    SizedBox(width: 5),
-                                    Text("Sort By: Title"),
-                                  ],
-                                ),
+                                child: Text("Sort By: Title"),
                               ),
                             ],
-                            onChanged: (value) {},
+                            onChanged: (value) {
+                              if (value != null) {
+                                setState(() => sortBy = value);
+                              }
+                            },
                           ),
                         ),
                       ),
@@ -307,74 +333,64 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                           itemCount: state.tasks.length,
                           itemBuilder: (context, index) {
                             final task = state.tasks[index];
-                                return Dismissible(
-                                  key: Key(task.id),
-                                  background: Container(
-                                    color: Colors.red,
-                                    alignment: Alignment.centerLeft,
-                                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                                    child: const Icon(Icons.delete, color: Colors.white),
+                            return Dismissible(
+                              key: Key(task.id),
+                              background: Container(
+                                color: Colors.red,
+                                alignment: Alignment.centerLeft,
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                child: const Icon(Icons.delete, color: Colors.white),
+                              ),
+                              dismissThresholds: const {
+                                DismissDirection.startToEnd: 0.4,
+                              },
+                              onDismissed: (direction) {
+                                if (direction == DismissDirection.startToEnd) {
+                                  context.read<TodoCubit>().deleteTask(task.id);
+                                }
+                              },
+                              child: Card(
+                                margin: const EdgeInsets.all(8),
+                                color: task.allTodosCompleted ? Colors.green.withOpacity(0.1) : Colors.white,
+                                child: ListTile(
+                                  trailing: IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: task.allTodosCompleted ? Colors.green : Appcolors.navyblue,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => TaskDetailsScreen(task: task),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                  dismissThresholds: const {
-                                    DismissDirection.startToEnd: 0.4,
-                                  },
-                                  onDismissed: (direction) {
-                                    if (direction == DismissDirection.startToEnd) {
-                                      context.read<TodoCubit>().deleteTask(task.id);
-                                    }
-                                  },
-                                  child: Card(
-                                    margin: const EdgeInsets.all(8),
-                                    child: ListTile(
-                                      leading: Transform.scale(
-                                        scale: 1.3,
-                                        child: Checkbox(
-                                          value: task.isCompleted,
-                                          onChanged: (value) {
-                                            context.read<TodoCubit>().toggleComplete(task.id);
-                                          },
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(4),
-                                          ),
-                                          side: MaterialStateBorderSide.resolveWith(
-                                            (states) => BorderSide(
-                                              width: 2,
-                                              color: task.isCompleted 
-                                                  ? Colors.green 
-                                                  : Colors.grey.shade400,
-                                            ),
-                                          ),
-                                          checkColor: Colors.white,
-                                          activeColor: Colors.green,
-                                          fillColor: MaterialStateProperty.resolveWith((states) {
-                                            if (states.contains(MaterialState.selected)) {
-                                              return Colors.green;
-                                            }
-                                            return Colors.transparent;
-                                          }),
-                                        ),
-                                      ),
-                                      title: Text(
-                                        task.title,
-                                        style: TextStyle(
-                                          decoration: task.isCompleted 
-                                              ? TextDecoration.lineThrough 
-                                              : TextDecoration.none,
-                                          color: task.isCompleted ? Colors.grey : Colors.black,
-                                        ),
-                                      ),
-                                      subtitle: Text(
-                                        "${task.description}\nDeadline: ${task.deadline.day}/${task.deadline.month}/${task.deadline.year} ${task.deadline.hour}:${task.deadline.minute.toString().padLeft(2, '0')}",
-                                        style: TextStyle(
-                                          decoration: task.isCompleted 
-                                              ? TextDecoration.lineThrough 
-                                              : TextDecoration.none,
-                                          color: task.isCompleted ? Colors.grey : Colors.black54,
-                                        ),
-                                      ),
+                                  title: Text(
+                                    task.title,
+                                    style: TextStyle(
+                                      decoration: task.isCompleted
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none,
+                                      color: task.isCompleted ? Colors.grey : Colors.black,
                                     ),
                                   ),
-                                );
+                                  subtitle: Text(
+                                    "${task.description}\nDeadline: ${task.deadline.day}/${task.deadline.month}/${task.deadline.year} ${task.deadline.hour}:${task.deadline.minute.toString().padLeft(2, '0')}",
+                                    style: TextStyle(
+                                      decoration: task.isCompleted
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none,
+                                      color: task.isCompleted ? Colors.grey : Colors.black54,
+                                    ),
+                                  ),
+                                  leading: task.allTodosCompleted
+                                      ? const Icon(Icons.check_circle, color: Colors.green)
+                                      : null,
+                                ),
+                              ),
+                            );
                           },
                         ),
                 ),
