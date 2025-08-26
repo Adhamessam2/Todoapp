@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:todoapp/core/models/todo_model.dart';
 import 'package:todoapp/core/models/user_model.dart';
-import 'package:todoapp/features/auth/models/authmodel.dart';
 
 class FirebaseFunctions {
   final FirebaseAuth _auth = FirebaseAuth.instance;
