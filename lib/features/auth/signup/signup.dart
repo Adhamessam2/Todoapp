@@ -44,11 +44,16 @@ class _SignupscreenState extends State<Signupscreen> {
                     context,
                     MaterialPageRoute(builder: (context) => Authgate()),
                   );
-                }
-                if (state is AuthErrorState) {
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.error)));
+                } else if (state is AuthsignupErrorState) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.lightBlueAccent,
+                      content: Text(
+                        state.error,
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  );
                 }
               },
               builder: (context, state) {

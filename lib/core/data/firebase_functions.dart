@@ -146,6 +146,7 @@ class FirebaseFunctions {
         .collection('users')
         .doc(user.uid)
         .get();
+
     return UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
   }
 

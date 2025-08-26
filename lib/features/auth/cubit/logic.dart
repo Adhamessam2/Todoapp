@@ -12,9 +12,9 @@ class Authlogic extends Cubit<AuthStates> {
     try {
       final result = await _firebaseFunctions.signup(email, password, name);
 
-      emit(AuthSuccessState(authModel: result));
+      emit(AuthSuccessState(result));
     } catch (error) {
-      emit(AuthErrorState(error: error.toString()));
+      emit(AuthsignupErrorState(error: error.toString()));
     }
   }
 
@@ -22,19 +22,15 @@ class Authlogic extends Cubit<AuthStates> {
     emit(AuthLoadingState());
     try {
       final result = await _firebaseFunctions.login(email, password);
-      emit(AuthSuccessState(authModel: result));
+      emit(AuthSuccessState(result));
     } catch (error) {
-      emit(AuthErrorState(error: error.toString()));
+      emit(AuthloginErrorState(error: error.toString()));
     }
   }
 
   Future<void> logout() async {
     emit(AuthLoadingState());
-    try {
-      await _firebaseFunctions.logout();
-      emit(AuthLogout());
-    } catch (error) {
-      emit(AuthErrorState(error: error.toString()));
-    }
+    await _firebaseFunctions.logout();
+    emit(AuthLogout());
   }
 }

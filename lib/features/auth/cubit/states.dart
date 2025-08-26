@@ -8,12 +8,17 @@ class AuthLoadingState extends AuthStates {}
 
 class AuthSuccessState extends AuthStates {
   final UserModel authModel;
-  AuthSuccessState({required this.authModel});
+  AuthSuccessState(this.authModel);
 }
 
-class AuthErrorState extends AuthStates {
+class AuthloginErrorState extends AuthStates {
   final String error;
-  AuthErrorState({required this.error});
+  AuthloginErrorState({required this.error});
+}
+
+class AuthsignupErrorState extends AuthStates {
+  final String error;
+  AuthsignupErrorState({required this.error});
 }
 
 class AuthLogout extends AuthStates {}
