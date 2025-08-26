@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:todoapp/features/home/presentation/screens/home_screen.dart';
+import 'package:todoapp/features/addTasks/presentation/main_screen.dart';
 import 'package:todoapp/features/splash_screen/splash.dart';
 
 class Authgate extends StatelessWidget {
@@ -17,7 +17,7 @@ class Authgate extends StatelessWidget {
         if (!snapshot.hasData) {
           return Splashscreen();
         }
-        return HomeScreen();
+        return MainScreen();
       },
     );
   }

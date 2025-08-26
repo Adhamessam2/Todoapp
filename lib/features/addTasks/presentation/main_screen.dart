@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/widegts/custom_button_nav_bar.dart';
 import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
 import 'package:todoapp/features/addTasks/cubit/nav_state.dart';
@@ -28,7 +29,18 @@ class MainScreen extends StatelessWidget {
         if (state is NavChanged) currentIndex = state.index;
 
         return Scaffold(
-          body: screens[currentIndex],
+          //body: screens[currentIndex],
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Appcolors.blue, Appcolors.navyblue],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
+          ),
           bottomNavigationBar: const CustomBottomNavBar(),
         );
       },

@@ -89,9 +89,7 @@ class _LoginscreenState extends State<Loginscreen> {
                               if (emailController.text.isEmpty) {
                                 return 'Please enter your email';
                               }
-                              if (!emailController.text.contains(
-                                '@gmail.com',
-                              )) {
+                              if (!emailController.text.contains('@gmail.com')) {
                                 return 'Please enter a valid email';
                               }
                               return null;
@@ -165,7 +163,7 @@ class _LoginscreenState extends State<Loginscreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Don’t have an account?',
+                          'Don\'t have an account?',
                           style: TextStyle(color: Colors.white),
                         ),
                         TextButton(
@@ -202,10 +200,7 @@ class _LoginscreenState extends State<Loginscreen> {
                         Customicons(
                           child: IconButton(
                             onPressed: () {},
-                            icon: const Icon(
-                              Icons.facebook,
-                              color: Colors.blue,
-                            ),
+                            icon: const Icon(Icons.facebook, color: Colors.blue),
                           ),
                         ),
                         SizedBox(width: screenSize.width * 0.02),
