@@ -7,6 +7,7 @@ import 'package:todoapp/features/addTasks/presentation/add_task_screen.dart';
 import 'package:todoapp/features/calendar/calendar_Screen.dart';
 import 'package:todoapp/features/calendar/cubit/calendar_cubit.dart';
 import 'package:todoapp/features/home/presentation/screens/home_screen.dart';
+import 'package:todoapp/features/settings/screens/settings_screen.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
@@ -15,7 +16,7 @@ class MainScreen extends StatelessWidget {
     const HomeScreen(),
     const AddTaskScreen(),
     BlocProvider(create: (context) => CalendarCubit(), child: CalendarScreen()),
-    // SettingsScreen(),
+    SettingsScreen(),
   ];
 
   @override

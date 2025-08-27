@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/widegts/authgate.dart';
 import 'package:todoapp/features/addTasks/cubit/add_tasks_todos/todo_logic.dart';
 import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
