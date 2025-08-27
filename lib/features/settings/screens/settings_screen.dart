@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -11,12 +12,22 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Appcolors.navyblue,
-      appBar: AppBar(
-        backgroundColor: Appcolors.navyblue,
-        centerTitle: true,
-        title: Text('Settings', style: TextStyle(color: Colors.white)),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Appcolors.blue, Appcolors.navyblue],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Column(
+          children: [
+            SizedBox(height: 40.h),
+            Text('Settings'),
+          ],
+        ),
       ),
     );
   }
