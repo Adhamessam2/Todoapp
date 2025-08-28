@@ -15,9 +15,9 @@ class Customicons extends StatelessWidget {
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-            color: const Color.fromARGB(255, 71, 70, 70),
-            spreadRadius: 1,
-            blurRadius: 1,
+            color: Colors.white,
+            spreadRadius: 0,
+            blurRadius: 2,
             offset: Offset(0, 0),
           ),
         ],

@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 20),
                       Text(
-                        "Hello ${userinfo.username}",
+                        "Hello ${userinfo.profile.username}",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ],

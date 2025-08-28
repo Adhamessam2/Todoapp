@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
-import 'package:todoapp/core/widegts/authgate.dart';
 import 'package:todoapp/core/widegts/customform.dart';
 import 'package:todoapp/features/auth/cubit/logic.dart';
 import 'package:todoapp/features/auth/cubit/states.dart';
@@ -40,11 +39,10 @@ class _LoginscreenState extends State<Loginscreen> {
             child: BlocConsumer<Authlogic, AuthStates>(
               listener: (context, state) {
                 if (state is AuthSuccessState) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Authgate()),
-                  );
+                  Navigator.pop(context);
+                  print("success");
                 } else if (state is AuthloginErrorState) {
+                  print('failed to login');
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -189,7 +187,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           },
                           child: Text(
                             'Sign Up',
-                            style: TextStyle(color: Appcolors.lightblue),
+                            style: TextStyle(color: Appcolors.textcolor),
                           ),
                         ),
                       ],

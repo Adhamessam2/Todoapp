@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/data/firebase_functions.dart';
 import 'package:todoapp/features/auth/cubit/states.dart';
@@ -7,12 +8,12 @@ class Authlogic extends Cubit<AuthStates> {
 
   FirebaseFunctions _firebaseFunctions = FirebaseFunctions();
 
-  Future<void> signup(String email, String password, String name) async {
+  Future<void> signup(String name, String email, String password) async {
     emit(AuthLoadingState());
     try {
-      final result = await _firebaseFunctions.signup(email, password, name);
+      final authModel = await _firebaseFunctions.signup(name, email, password);
 
-      emit(AuthSuccessState(result));
+      emit(AuthSuccessState(authModel));
     } catch (error) {
       emit(AuthsignupErrorState(error: error.toString()));
     }
@@ -20,9 +21,10 @@ class Authlogic extends Cubit<AuthStates> {
 
   Future<void> login(String email, String password) async {
     emit(AuthLoadingState());
+    // final currentUser = FirebaseAuth.instance.currentUser;
     try {
-      final result = await _firebaseFunctions.login(email, password);
-      emit(AuthSuccessState(result));
+      final authModel = await _firebaseFunctions.login(email, password);
+      emit(AuthSuccessState(authModel));
     } catch (error) {
       emit(AuthloginErrorState(error: error.toString()));
     }

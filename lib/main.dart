@@ -14,22 +14,17 @@ void main() async {
   runApp(Todoapp());
 }
 
-class Todoapp extends StatefulWidget {
+class Todoapp extends StatelessWidget {
   const Todoapp({super.key});
 
-  @override
-  State<Todoapp> createState() => _TodoappState();
-}
-
-class _TodoappState extends State<Todoapp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => TodoCubit()),
-        BlocProvider(create: (context) => CalendarCubit()),
-        BlocProvider(create: (context) => Authlogic()),
-        BlocProvider(create: (context) => NavCubit()),
+        BlocProvider(create: (_) => Authlogic()),
+        BlocProvider(create: (_) => TodoCubit()),
+        BlocProvider(create: (_) => CalendarCubit()),
+        BlocProvider(create: (_) => NavCubit()),
       ],
       child: MaterialApp(home: Authgate(), debugShowCheckedModeBanner: false),
     );

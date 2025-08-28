@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:todoapp/core/data/Appuser.dart';
 import 'package:todoapp/core/models/todo_model.dart';
 import 'package:todoapp/core/models/user_model.dart';
 
@@ -111,7 +112,7 @@ class FirebaseFunctions {
     }
   }
 
-  Future<UserModel> signup(String name, String email, String password) async {
+  Future<AppUser> signup(String name, String email, String password) async {
     UserCredential userdata = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
@@ -133,10 +134,10 @@ class FirebaseFunctions {
     } catch (e) {
       print(e);
     }
-    return authModel;
+    return AppUser(firebaseUser: user, profile: authModel);
   }
 
-  Future<UserModel> login(String email, String password) async {
+  Future<AppUser> login(String email, String password) async {
     UserCredential userdata = await _auth.signInWithEmailAndPassword(
       email: email,
       password: password,
@@ -147,7 +148,13 @@ class FirebaseFunctions {
         .doc(user.uid)
         .get();
 
-    return UserModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    if (!snapshot.exists) {
+      throw Exception("User profile not found in Firestore");
+    }
+    UserModel authModel = UserModel.fromJson(
+      snapshot.data() as Map<String, dynamic>,
+    );
+    return AppUser(firebaseUser: user, profile: authModel);
   }
 
   Future<void> logout() async {
