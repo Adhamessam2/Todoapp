@@ -16,8 +16,9 @@ class Authgate extends StatelessWidget {
         }
         if (!snapshot.hasData) {
           return Loginscreen();
+        } else {
+          return MainScreen();
         }
-        return MainScreen();
       },
     );
   }
