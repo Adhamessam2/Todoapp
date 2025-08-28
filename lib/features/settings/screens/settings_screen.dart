@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
+import 'package:todoapp/features/addTasks/presentation/add_task_screen.dart';
 import 'package:todoapp/features/auth/cubit/logic.dart';
 import 'package:todoapp/features/auth/cubit/states.dart';
 import 'package:todoapp/features/group/cubit/group_cubit.dart';
+import 'package:todoapp/features/group/group_tasks/task_screen/task_screen.dart';
 import 'package:todoapp/features/group/presentation/groups_screen.dart';
 import 'package:todoapp/features/settings/screens/profile_screen.dart';
 
@@ -77,7 +79,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         style: TextStyle(color: Colors.white, fontSize: 22),
                       ),
                       trailing: Icon(Icons.chevron_right, color: Colors.white),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddTaskScreen(),
+                          ),
+                        );
+                      },
                     ),
                     SizedBox(height: 10.h),
                     Divider(color: Colors.white54, thickness: 1, height: 1),

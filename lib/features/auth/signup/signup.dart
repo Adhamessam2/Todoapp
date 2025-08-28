@@ -47,10 +47,10 @@ class _SignupscreenState extends State<Signupscreen> {
                 } else if (state is AuthsignupErrorState) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: Colors.lightBlueAccent,
+                      backgroundColor: Appcolors.blue,
                       content: Text(
                         state.error,
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   );
@@ -203,7 +203,7 @@ class _SignupscreenState extends State<Signupscreen> {
                           },
                           child: Text(
                             'Sign In',
-                            style: TextStyle(color: Appcolors.lightblue),
+                            style: TextStyle(color: Appcolors.blue),
                           ),
                         ),
                       ],
