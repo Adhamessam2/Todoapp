@@ -1,6 +1,7 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:todoapp/core/widegts/authgate.dart';
 import 'package:todoapp/features/addTasks/cubit/add_tasks_todos/todo_logic.dart';
 import 'package:todoapp/features/addTasks/cubit/nav_cubit.dart';
@@ -11,7 +12,7 @@ import 'package:todoapp/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(Todoapp());
+  runApp(const Todoapp());
 }
 
 class Todoapp extends StatelessWidget {
@@ -26,7 +27,16 @@ class Todoapp extends StatelessWidget {
         BlocProvider(create: (_) => CalendarCubit()),
         BlocProvider(create: (_) => NavCubit()),
       ],
-      child: MaterialApp(home: Authgate(), debugShowCheckedModeBanner: false),
+      child: ScreenUtilInit(
+        designSize: const Size(411, 731),
+        minTextAdapt: true,
+        builder: (context, child) {
+          return MaterialApp(
+            home: Authgate(),
+            debugShowCheckedModeBanner: false,
+          );
+        },
+      ),
     );
   }
 }

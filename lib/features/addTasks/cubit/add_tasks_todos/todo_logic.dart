@@ -11,11 +11,14 @@ class TodoCubit extends Cubit<TodoState> {
   StreamSubscription? _tasksSubscription;
 
   TodoCubit() : super(TodoInitial()) {
-    _tasksSubscription = _firebaseFunctions.getTasksStream().listen((tasks) {
-      emit(TodoLoaded(tasks));
-    }, onError: (error) {
-      emit(TodoError('Failed to load tasks: $error'));
-    });
+    _tasksSubscription = _firebaseFunctions.getTasksStream().listen(
+      (tasks) {
+        emit(TodoLoaded(tasks));
+      },
+      onError: (error) {
+        emit(TodoError('Failed to load tasks: $error'));
+      },
+    );
   }
 
   @override

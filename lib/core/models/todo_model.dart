@@ -4,7 +4,7 @@ import 'package:todoapp/core/models/todo_item_model.dart';
 class TodoModel {
   final String id, title, description;
   final DateTime deadline;
-  final bool isCompleted;
+  bool isCompleted;
   final List<TodoItem> todos;
 
   Map<String, dynamic> toJson() {
@@ -27,7 +27,8 @@ class TodoModel {
           ? DateTime.parse(json['deadline'])
           : (json['deadline'] as Timestamp).toDate(),
       isCompleted: json['isCompleted'] ?? false,
-      todos: (json['todos'] as List<dynamic>?)
+      todos:
+          (json['todos'] as List<dynamic>?)
               ?.map((todoJson) => TodoItem.fromJson(todoJson))
               .toList() ??
           [],

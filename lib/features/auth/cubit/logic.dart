@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/data/firebase_functions.dart';
 import 'package:todoapp/features/auth/cubit/states.dart';
@@ -21,7 +20,6 @@ class Authlogic extends Cubit<AuthStates> {
 
   Future<void> login(String email, String password) async {
     emit(AuthLoadingState());
-    // final currentUser = FirebaseAuth.instance.currentUser;
     try {
       final authModel = await _firebaseFunctions.login(email, password);
       emit(AuthSuccessState(authModel));

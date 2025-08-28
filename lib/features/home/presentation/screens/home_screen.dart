@@ -22,6 +22,7 @@ class HomeScreen extends StatelessWidget {
         },
         builder: (context, state) {
           final cubit = context.read<Authlogic>();
+<<<<<<< HEAD
           if (state is AuthSuccessState) {
             final userinfo = state.authModel;
             return Container(
@@ -72,17 +73,26 @@ class HomeScreen extends StatelessWidget {
                     },
                     child: Text("logout", style: TextStyle(color: Colors.red)),
                   ),
+=======
+          return Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Appcolors.navyblue,
+                  Appcolors.blue,
+                  Appcolors.lightblue,
+>>>>>>> a6b70159989c401d3a6f79cea932b55517a39eea
                 ],
               ),
-            );
-          }
-          return Center(
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-              onPressed: () {
-                cubit.logout();
-              },
-              child: Text("logout", style: TextStyle(color: Colors.black)),
+            ),
+            child: Center(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                onPressed: () {
+                  cubit.logout();
+                },
+                child: Text("logout", style: TextStyle(color: Colors.black)),
+              ),
             ),
           );
         },
