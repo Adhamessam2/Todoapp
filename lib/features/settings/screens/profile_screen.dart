@@ -53,18 +53,8 @@ class ProfileScreen extends StatelessWidget {
                 ),
               );
             }
-            final user = snapshot.data!;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ProfileInfo("Name ", user.username),
-                ProfileInfo("Email ", user.email),
-                ProfileInfo("UID ", user.id),
-                SizedBox(height: 10.h),
-                ProfileInfo("Total Todos ", "${user.myTodosId.length}"),
-                ProfileInfo("Finished Todos ", "${user.finshedTodos}"),
-              ],
-            );
+
+            return ProfileInfo(user: snapshot.data!);
           },
         ),
       ),
