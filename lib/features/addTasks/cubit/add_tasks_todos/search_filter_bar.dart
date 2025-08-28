@@ -49,11 +49,17 @@ class SearchFilterBar extends StatelessWidget {
               child: DropdownButton<String>(
                 dropdownColor: Appcolors.navyblue,
                 style: const TextStyle(color: Colors.white),
-                icon: const Icon(Icons.arrow_drop_down_circle_rounded, color: Colors.lightBlue),
+                icon: const Icon(
+                  Icons.arrow_drop_down_circle_rounded,
+                  color: Appcolors.navyblue,
+                ),
                 value: sortBy,
                 items: const [
                   DropdownMenuItem(value: "Date", child: Text("Sort By: Date")),
-                  DropdownMenuItem(value: "Title", child: Text("Sort By: Title")),
+                  DropdownMenuItem(
+                    value: "Title",
+                    child: Text("Sort By: Title"),
+                  ),
                 ],
                 onChanged: (value) {
                   if (value != null) onSortChanged(value);

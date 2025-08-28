@@ -25,7 +25,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
           // 🎨 الألوان
           backgroundColor: Appcolors.navyblue,
-          selectedItemColor: Color(0xff76D5EA40),
+          selectedItemColor: Appcolors.blue,
           unselectedItemColor: Colors.white,
 
           showSelectedLabels: true,

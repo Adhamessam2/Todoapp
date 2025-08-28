@@ -40,7 +40,7 @@ class Button extends StatelessWidget {
           child: Text(
             lable,
             style: TextStyle(
-              color: Appcolors.blue,
+              color: Colors.white,
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),

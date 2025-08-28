@@ -19,7 +19,7 @@ class GroupesScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Appcolors.navyblue,
+        backgroundColor: Appcolors.blue,
         title: Text("Groups", style: Customstyle.mystyle),
         actions: [
           TextButton(
@@ -34,7 +34,7 @@ class GroupesScreen extends StatelessWidget {
                 ),
               );
             },
-            child: Text("Add Group"),
+            child: Text("Add Group", style: TextStyle(color: Colors.white)),
           ),
         ],
       ),
@@ -44,10 +44,11 @@ class GroupesScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Appcolors.lightblue,
                   Appcolors.blue,
-                  Appcolors.navyblue,
+                  Appcolors.lightblue, //Appcolors.navyblue,
                 ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
             child: SafeArea(

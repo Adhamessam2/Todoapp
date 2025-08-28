@@ -12,7 +12,10 @@ class CustmizedTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextField(
-        decoration: InputDecoration(labelText: lable),
+        decoration: InputDecoration(
+          labelText: lable,
+          labelStyle: TextStyle(color: Colors.white),
+        ),
         controller: ctrl,
       ),
     );

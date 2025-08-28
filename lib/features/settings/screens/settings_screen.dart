@@ -93,7 +93,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => BlocProvider(create: (context) => GroupCubit()..getGroups(),child: GroupesScreen(),),
+                            builder: (context) => BlocProvider(
+                              create: (context) => GroupCubit()..getGroups(),
+                              child: GroupesScreen(),
+                            ),
                           ),
                         );
                       },
@@ -112,11 +115,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.logout, color: Colors.red),
+                              Icon(Icons.logout, color: Appcolors.textcolor),
                               SizedBox(width: 5.w),
                               Text(
                                 "logout",
-                                style: TextStyle(color: Colors.red),
+                                style: TextStyle(color: Appcolors.textcolor),
                               ),
                             ],
                           ),

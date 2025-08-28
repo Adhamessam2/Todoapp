@@ -26,10 +26,12 @@ class AddGroupScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Appcolors.lightblue,
                   Appcolors.blue,
-                  Appcolors.navyblue,
+                  Appcolors.lightblue,
+                  // Appcolors.navyblue,
                 ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
             child: Padding(
@@ -57,7 +59,10 @@ class AddGroupScreen extends StatelessWidget {
                   DropdownButton<String>(
                     elevation: 5,
                     value: null, // أو قيمة محددة من الـ list
-                    hint: Text("Show member"),
+                    hint: Text(
+                      "Show member",
+                      style: TextStyle(color: Colors.white),
+                    ),
                     items: (state is AddMember)
                         ? state.members.map((member) {
                             return DropdownMenuItem<String>(

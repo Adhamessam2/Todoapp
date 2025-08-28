@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/core/models/todo_model.dart';
+import 'package:todoapp/core/style_manegares/colors.dart';
 
 class TaskItem extends StatelessWidget {
   final TodoModel task;
@@ -36,7 +37,9 @@ class TaskItem extends StatelessWidget {
         curve: Curves.easeInOut,
         margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
         decoration: BoxDecoration(
-          color: task.isCompleted ? Colors.green.withOpacity(0.15) : Colors.white,
+          color: task.isCompleted
+              ? Colors.green.withOpacity(0.15)
+              : Colors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -50,8 +53,10 @@ class TaskItem extends StatelessWidget {
           leading: Transform.scale(
             scale: 1.3,
             child: Checkbox(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-              activeColor: Colors.lightBlue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              activeColor: Appcolors.blue,
               value: task.isCompleted,
               onChanged: (bool? value) {
                 if (value != null) {
@@ -80,7 +85,7 @@ class TaskItem extends StatelessWidget {
             ),
           ),
           trailing: IconButton(
-            icon: const Icon(Icons.arrow_forward_ios, color: Colors.lightBlue),
+            icon: const Icon(Icons.arrow_forward_ios, color: Appcolors.blue),
             onPressed: onTap,
           ),
         ),

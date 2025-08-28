@@ -8,7 +8,6 @@ import 'package:todoapp/features/addTasks/cubit/add_tasks_todos/todo_logic.dart'
 import 'package:todoapp/features/addTasks/cubit/add_tasks_todos/todo_states.dart';
 import 'package:todoapp/features/addTasks/presentation/task_details_screen.dart';
 
-
 class AddTaskScreen extends StatefulWidget {
   const AddTaskScreen({super.key});
 
@@ -31,63 +30,90 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Appcolors.navyblue,
+      backgroundColor: Appcolors.blue,
       appBar: AppBar(
+        backgroundColor: Appcolors.blue,
         title: const Text(
           "My Tasks",
-          style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.w900),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 22,
+            fontWeight: FontWeight.w900,
+          ),
         ),
         centerTitle: true,
-        backgroundColor: Appcolors.navyblue,
       ),
-      body: BlocBuilder<TodoCubit, TodoState>(
-        builder: (context, state) {
-          if (state is TodoLoaded) {
-            return Column(
-              children: [
-                // 🔍 Search + Filter
-                SearchFilterBar(
-                  sortBy: sortBy,
-                  onSortChanged: (value) => setState(() => sortBy = value),
-                ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Appcolors.blue, Appcolors.lightblue],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: BlocBuilder<TodoCubit, TodoState>(
+          builder: (context, state) {
+            if (state is TodoLoaded) {
+              return Column(
+                children: [
+                  // 🔍 Search + Filter
+                  SearchFilterBar(
+                    sortBy: sortBy,
+                    onSortChanged: (value) => setState(() => sortBy = value),
+                  ),
 
-                // 📋 Task List
-                Expanded(
-                  child: state.tasks.isEmpty
-                      ? const Center(
-                          child: Text("No tasks yet", style: TextStyle(color: Colors.white70, fontSize: 18)),
-                        )
-                      : ListView.builder(
-                          padding: const EdgeInsets.only(top: 8),
-                          itemCount: state.tasks.length,
-                          itemBuilder: (context, index) {
-                            final task = state.tasks[index];
-                            return TaskItem(
-                              task: task,
-                              onDelete: () => context.read<TodoCubit>().deleteTask(task.id),
-                              onToggleComplete: (updatedTask) =>
-                                  context.read<TodoCubit>().updateTask(updatedTask),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => TaskDetailsScreen(task: task),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                ),
-              ],
+                  // 📋 Task List
+                  Expanded(
+                    child: state.tasks.isEmpty
+                        ? const Center(
+                            child: Text(
+                              "No tasks yet",
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 18,
+                              ),
+                            ),
+                          )
+                        : ListView.builder(
+                            padding: const EdgeInsets.only(top: 8),
+                            itemCount: state.tasks.length,
+                            itemBuilder: (context, index) {
+                              final task = state.tasks[index];
+                              return TaskItem(
+                                task: task,
+                                onDelete: () => context
+                                    .read<TodoCubit>()
+                                    .deleteTask(task.id),
+                                onToggleComplete: (updatedTask) => context
+                                    .read<TodoCubit>()
+                                    .updateTask(updatedTask),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          TaskDetailsScreen(task: task),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                  ),
+                ],
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.white),
             );
-          }
-          return const Center(child: CircularProgressIndicator(color: Colors.white));
-        },
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _openAddTaskDialog,
-        backgroundColor: Colors.lightBlueAccent,
+        backgroundColor: Appcolors.blue,
         elevation: 10,
         shape: const CircleBorder(),
         child: const Icon(Icons.add, color: Colors.white, size: 30),

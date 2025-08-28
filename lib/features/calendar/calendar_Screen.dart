@@ -51,7 +51,7 @@ class CalendarScreen extends StatelessWidget {
                                 ? height * 0.05
                                 : width * 0.05,
                             Icons.keyboard_arrow_left,
-                            color: const Color(0xff1AA2C0),
+                            color: Appcolors.textcolor,
                           ),
                         ),
                         Expanded(

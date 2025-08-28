@@ -23,7 +23,10 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     return Scaffold(
       backgroundColor: Appcolors.navyblue,
       appBar: AppBar(
-        title: Text(widget.task.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          widget.task.title,
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Appcolors.navyblue,
         foregroundColor: Colors.white,
         elevation: 0,
@@ -65,31 +68,47 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                         final todo = task!.todos[index];
                         return GestureDetector(
                           onTap: () {
-                            context.read<TodoCubit>().toggleTodoCompletion(task.id, todo.id);
+                            context.read<TodoCubit>().toggleTodoCompletion(
+                              task.id,
+                              todo.id,
+                            );
                           },
                           child: AnimatedContainer(
                             duration: const Duration(milliseconds: 300),
                             curve: Curves.easeInOut,
                             margin: const EdgeInsets.symmetric(vertical: 6),
-                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 10,
+                            ),
                             decoration: BoxDecoration(
                               color: todo.isCompleted
                                   ? Colors.green.withOpacity(0.1)
                                   : Colors.white.withOpacity(0.1),
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(
-                                color: todo.isCompleted ? Colors.green : Colors.white24,
+                                color: todo.isCompleted
+                                    ? Colors.green
+                                    : Colors.white24,
                               ),
                             ),
                             child: Row(
                               children: [
                                 AnimatedSwitcher(
                                   duration: const Duration(milliseconds: 300),
-                                  transitionBuilder: (child, anim) => ScaleTransition(scale: anim, child: child),
+                                  transitionBuilder: (child, anim) =>
+                                      ScaleTransition(
+                                        scale: anim,
+                                        child: child,
+                                      ),
                                   child: Icon(
-                                    todo.isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
+                                    todo.isCompleted
+                                        ? Icons.check_circle
+                                        : Icons.radio_button_unchecked,
                                     key: ValueKey(todo.isCompleted),
-                                    color: todo.isCompleted ? Colors.green : Colors.grey,
+                                    color: todo.isCompleted
+                                        ? Colors.green
+                                        : Colors.grey,
                                     size: 26,
                                   ),
                                 ),
@@ -100,8 +119,12 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w600,
-                                      color: todo.isCompleted ? Colors.green : Colors.white,
-                                      decoration: todo.isCompleted ? TextDecoration.lineThrough : null,
+                                      color: todo.isCompleted
+                                          ? Colors.green
+                                          : Colors.white,
+                                      decoration: todo.isCompleted
+                                          ? TextDecoration.lineThrough
+                                          : null,
                                     ),
                                     child: Text(todo.title),
                                   ),
@@ -113,7 +136,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                       },
                     );
                   }
-                  return const Center(child: CircularProgressIndicator(color: Colors.white));
+                  return const Center(
+                    child: CircularProgressIndicator(color: Colors.white),
+                  );
                 },
               ),
             ),
@@ -126,7 +151,10 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                 Expanded(
                   child: TextField(
                     controller: _todoController,
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                    ),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.white.withOpacity(0.1),
@@ -136,14 +164,17 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                         borderRadius: BorderRadius.circular(14),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.lightBlueAccent,
+                    color: Appcolors.blue,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: IconButton(
@@ -155,7 +186,10 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                           title: _todoController.text,
                           isCompleted: false,
                         );
-                        context.read<TodoCubit>().addTodoToTask(widget.task.id, newTodo);
+                        context.read<TodoCubit>().addTodoToTask(
+                          widget.task.id,
+                          newTodo,
+                        );
                         _todoController.clear();
                       }
                     },
@@ -176,7 +210,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
 
                   if (task.todos.isEmpty) return const SizedBox();
 
-                  final completedCount = task.todos.where((t) => t.isCompleted).length;
+                  final completedCount = task.todos
+                      .where((t) => t.isCompleted)
+                      .length;
                   final allCompleted = completedCount == task.todos.length;
 
                   return AnimatedContainer(
@@ -192,7 +228,9 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                     child: Row(
                       children: [
                         Icon(
-                          allCompleted ? Icons.check_circle : Icons.info_outline,
+                          allCompleted
+                              ? Icons.check_circle
+                              : Icons.info_outline,
                           color: allCompleted ? Colors.green : Colors.blue,
                         ),
                         const SizedBox(width: 10),
