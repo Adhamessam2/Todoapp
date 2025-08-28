@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-<<<<<<< HEAD
 import 'package:todoapp/core/data/Appuser.dart';
-=======
 import 'package:todoapp/core/models/group_model.dart';
->>>>>>> a6b70159989c401d3a6f79cea932b55517a39eea
 import 'package:todoapp/core/models/todo_model.dart';
 import 'package:todoapp/core/models/user_model.dart';
 
@@ -27,6 +24,8 @@ class FirebaseFunctions {
             .doc(todo.id)
             .set(todo.toJson());
         print("Task added successfully: ${todo.title}");
+      } else {
+        print("No user logged in");
       }
     } catch (e) {
       print("Error adding task: $e");
@@ -57,6 +56,7 @@ class FirebaseFunctions {
     return userTodos;
   }
 
+  // Real-time stream for tasks
   Stream<List<TodoModel>> getTasksStream() {
     final userId = getCurrentUserId();
     if (userId == null) {

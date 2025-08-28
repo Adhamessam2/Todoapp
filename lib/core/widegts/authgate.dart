@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todoapp/features/addTasks/presentation/main_screen.dart';
 import 'package:todoapp/features/auth/login/login.dart';
-import 'package:todoapp/features/home/presentation/screens/home_screen.dart';
+import 'package:todoapp/features/home/presentation/screens/home_screen_backup.dart';
 
 class Authgate extends StatelessWidget {
   const Authgate({super.key});
@@ -17,7 +18,7 @@ class Authgate extends StatelessWidget {
         if (!snapshot.hasData) {
           return Loginscreen();
         }
-        return HomeScreen();
+        return MainScreen();
       },
     );
   }

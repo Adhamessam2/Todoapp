@@ -62,19 +62,23 @@ class HomeScreen extends StatelessWidget {
                           Column(
                             children: [
                               Text(
-                                "Hello ${userinfo.username}",
-                                style: TextStyle(color: Colors.white, fontSize: 25,
-                                fontWeight: FontWeight.w600,
+                                "Hello ${userinfo.profile.username}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              SizedBox(height: 5,),
+                              SizedBox(height: 5),
                               Text(
-                                "${userinfo.email}",
-                                style: TextStyle(color: Colors.white, fontSize: 25,
-                                fontWeight: FontWeight.w600,
+                                "${userinfo.profile.email}",
+
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              
                             ],
                           ),
                         ],
@@ -87,7 +91,10 @@ class HomeScreen extends StatelessWidget {
                         onPressed: () {
                           cubit.logout();
                         },
-                        child: Text("logout", style: TextStyle(color: Colors.red)),
+                        child: Text(
+                          "logout",
+                          style: TextStyle(color: Colors.red),
+                        ),
                       ),
                     ],
                   ),
