@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
@@ -8,7 +7,7 @@ import 'package:todoapp/features/settings/profileServices/profile_widgets.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-  final UserModel user;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -54,11 +53,11 @@ class ProfileScreen extends StatelessWidget {
                 ),
               );
             }
-
+            final user = snapshot.data!;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ProfileInfo("Name "),
+                ProfileInfo("Name ", user.username),
                 ProfileInfo("Email ", user.email),
                 ProfileInfo("UID ", user.id),
                 SizedBox(height: 10.h),

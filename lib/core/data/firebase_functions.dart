@@ -23,8 +23,6 @@ class FirebaseFunctions {
             .doc(todo.id)
             .set(todo.toJson());
         print("Task added successfully: ${todo.title}");
-      } else {
-        print("No user logged in");
       }
     } catch (e) {
       print("Error adding task: $e");
@@ -55,7 +53,6 @@ class FirebaseFunctions {
     return userTodos;
   }
 
-  // Real-time stream for tasks
   Stream<List<TodoModel>> getTasksStream() {
     final userId = getCurrentUserId();
     if (userId == null) {

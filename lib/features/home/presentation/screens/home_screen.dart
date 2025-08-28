@@ -1,7 +1,10 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todoapp/core/style_manegares/colors.dart';
 import 'package:todoapp/core/widegts/authgate.dart';
+import 'package:todoapp/features/addTasks/cubit/add_tasks_todos/todo_logic.dart';
+import 'package:todoapp/features/addTasks/cubit/add_tasks_todos/todo_states.dart';
 import 'package:todoapp/features/auth/cubit/logic.dart';
 import 'package:todoapp/features/auth/cubit/states.dart';
 
@@ -11,12 +14,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: BlocConsumer<Authlogic, AuthStates>(
         listener: (context, state) {
           if (state is AuthLogout) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => Authgate()),
+              MaterialPageRoute(builder: (context) => const Authgate()),
             );
           }
         },
@@ -34,67 +38,140 @@ class HomeScreen extends StatelessWidget {
                   end: Alignment.bottomCenter,
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: SafeArea(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            width: 50,
-                            height: 50,
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    // ====== Header ======
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+                          child: Container(
+                            padding: const EdgeInsets.all(15),
                             decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
+                              color: Colors.white.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(20),
                             ),
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.person,
-                                color: Colors.black,
-                                size: 30,
-                              ),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 25,
+                                  backgroundColor: Colors.white,
+                                  child: Icon(Icons.person, color: Colors.blue.shade700, size: 28),
+                                ),
+                                const SizedBox(width: 15),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Hello ${userinfo.username}",
+                                      style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      userinfo.email,
+                                      style: const TextStyle(color: Colors.white70, fontSize: 14),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(width: 20),
-                          Column(
-                            children: [
-                              Text(
-                                "Hello ${userinfo.username}",
-                                style: TextStyle(color: Colors.white, fontSize: 25,
-                                fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              SizedBox(height: 5,),
-                              Text(
-                                "${userinfo.email}",
-                                style: TextStyle(color: Colors.white, fontSize: 25,
-                                fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Spacer(),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
                         ),
-                        onPressed: () {
-                          cubit.logout();
-                        },
-                        child: Text("logout", style: TextStyle(color: Colors.red)),
                       ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 50,),
+
+                    //  Tasks Section 
+                    Expanded(
+                      child: BlocBuilder<TodoCubit, TodoState>(
+                        builder: (context, todoState) {
+                          if (todoState is TodoLoaded) {
+                            final completedTasks =
+                                todoState.tasks.where((task) => task.isCompleted).toList();
+                            final incompleteTasks =
+                                todoState.tasks.where((task) => !task.isCompleted).toList();
+
+                            if (todoState.tasks.isEmpty) {
+                              return Center(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.15),
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(color: Colors.white24),
+                                  ),
+                                  child: const Text(
+                                    "No tasks yet",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: ListView(
+                                children: [
+                                  if (incompleteTasks.isNotEmpty) ...[
+                                    _buildSectionTitle("Incomplete Tasks"),
+                                    ...incompleteTasks.map(
+                                      (task) =>
+                                          _buildTaskCard(task.title, task.description, false),
+                                    ),
+                                    const SizedBox(height: 25),
+                                  ],
+                                  if (completedTasks.isNotEmpty) ...[
+                                    _buildSectionTitle("Completed Tasks"),
+                                    ...completedTasks.map(
+                                      (task) =>
+                                          _buildTaskCard(task.title, task.description, true),
+                                    ),
+                                  ],
+                                ],
+                              ),
+                            );
+                          } else if (todoState is TodoLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(color: Colors.white),
+                            );
+                          } else {
+                            return Center(
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.15),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: Colors.white24),
+                                ),
+                                child: const Text(
+                                  "No tasks yet",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );
           } else {
-            // Fallback UI for other states
             return Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -109,12 +186,57 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     cubit.logout();
                   },
-                  child: Text("logout", style: TextStyle(color: Colors.black)),
+                  child: const Text("logout", style: TextStyle(color: Colors.black)),
                 ),
               ),
             );
           }
         },
+      ),
+
+    );
+  }
+
+  // ===== Widgets =====
+  Widget _buildSectionTitle(String title) {
+    return Text(
+      title,
+      style: const TextStyle(
+          color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+    );
+  }
+
+  Widget _buildTaskCard(String title, String description, bool completed) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.white24),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              decoration: completed ? TextDecoration.lineThrough : null,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            description,
+            style: TextStyle(
+              color: Colors.white70,
+              fontSize: 13,
+              decoration: completed ? TextDecoration.lineThrough : null,
+            ),
+          ),
+        ],
       ),
     );
   }

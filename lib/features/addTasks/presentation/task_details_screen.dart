@@ -23,114 +23,143 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
     return Scaffold(
       backgroundColor: Appcolors.navyblue,
       appBar: AppBar(
-        title: Text(widget.task.title),
+        title: Text(widget.task.title, style: const TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Appcolors.navyblue,
         foregroundColor: Colors.white,
+        elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
-
+            //  Todos list
             Expanded(
               child: BlocBuilder<TodoCubit, TodoState>(
                 builder: (context, state) {
                   if (state is TodoLoaded) {
-                    TodoModel? task;
-                    for (var t in state.tasks) {
-                      if (t.id == widget.task.id) {
-                        task = t;
-                        break;
-                      }
-                    }
-                    task ??= widget.task;
+                    TodoModel? task = state.tasks.firstWhere(
+                      (t) => t.id == widget.task.id,
+                      orElse: () => widget.task,
+                    );
 
                     if (task.todos.isEmpty) {
-                      return const Center(child: Text("No todos yet",
-                      style: TextStyle(color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 30),
-                      ));
+                      return const Center(
+                        child: Text(
+                          "No todos yet",
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                          ),
+                        ),
+                      );
                     }
 
-                    return ListView(
-                      children: task.todos.map((todo) {
-                        return ListTile(
-                          leading: Icon(
-                            todo.isCompleted
-                                ? Icons.check_circle
-                                : Icons.radio_button_unchecked,
-                            color: todo.isCompleted ? Colors.green : Colors.grey,
-                          ),
-                          title: Text(
-                            todo.title,
-                            style: TextStyle(
-                              decoration: todo.isCompleted
-                                  ? TextDecoration.lineThrough
-                                  : TextDecoration.none,
-                              color:
-                                  todo.isCompleted ? Colors.green : const Color.fromARGB(255, 255, 255, 255),
+                    return ListView.builder(
+                      itemCount: task.todos.length,
+                      itemBuilder: (context, index) {
+                        final todo = task!.todos[index];
+                        return GestureDetector(
+                          onTap: () {
+                            context.read<TodoCubit>().toggleTodoCompletion(task.id, todo.id);
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                            margin: const EdgeInsets.symmetric(vertical: 6),
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: todo.isCompleted
+                                  ? Colors.green.withOpacity(0.1)
+                                  : Colors.white.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: todo.isCompleted ? Colors.green : Colors.white24,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                AnimatedSwitcher(
+                                  duration: const Duration(milliseconds: 300),
+                                  transitionBuilder: (child, anim) => ScaleTransition(scale: anim, child: child),
+                                  child: Icon(
+                                    todo.isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
+                                    key: ValueKey(todo.isCompleted),
+                                    color: todo.isCompleted ? Colors.green : Colors.grey,
+                                    size: 26,
+                                  ),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: AnimatedDefaultTextStyle(
+                                    duration: const Duration(milliseconds: 300),
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: todo.isCompleted ? Colors.green : Colors.white,
+                                      decoration: todo.isCompleted ? TextDecoration.lineThrough : null,
+                                    ),
+                                    child: Text(todo.title),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          onTap: () {
-                            context
-                                .read<TodoCubit>()
-                                .toggleTodoCompletion(task!.id, todo.id);
-                          },
                         );
-                      }).toList(),
+                      },
                     );
                   }
-                  return const Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator(color: Colors.white));
                 },
               ),
             ),
 
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
 
+            //  Add new todo
             Row(
               children: [
                 Expanded(
                   child: TextField(
-                    controller: _todoController,style: TextStyle(color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      ),
+                    controller: _todoController,
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
                     decoration: InputDecoration(
-                      
-                      hintText: "Add todo",
-                      hintStyle: const TextStyle(color: Colors.white),
+                      filled: true,
+                      fillColor: Colors.white.withOpacity(0.1),
+                      hintText: "Add todo...",
+                      hintStyle: const TextStyle(color: Colors.white54),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(14),
+                        borderSide: BorderSide.none,
                       ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(
-                    Icons.add,
-                    color: Color.fromARGB(255, 241, 249, 255),
-                    size: 30,
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.lightBlueAccent,
+                    borderRadius: BorderRadius.circular(14),
                   ),
-                  onPressed: () {
-                    if (_todoController.text.isNotEmpty) {
-                      final newTodo = TodoItem(
-                        id: DateTime.now().toString(),
-                        title: _todoController.text,
-                        isCompleted: false,
-                      );
-                      context
-                          .read<TodoCubit>()
-                          .addTodoToTask(widget.task.id, newTodo);
-                      _todoController.clear();
-                    }
-                  },
+                  child: IconButton(
+                    icon: const Icon(Icons.add, color: Colors.white, size: 28),
+                    onPressed: () {
+                      if (_todoController.text.isNotEmpty) {
+                        final newTodo = TodoItem(
+                          id: DateTime.now().toString(),
+                          title: _todoController.text,
+                          isCompleted: false,
+                        );
+                        context.read<TodoCubit>().addTodoToTask(widget.task.id, newTodo);
+                        _todoController.clear();
+                      }
+                    },
+                  ),
                 ),
               ],
             ),
@@ -140,39 +169,36 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
             BlocBuilder<TodoCubit, TodoState>(
               builder: (context, state) {
                 if (state is TodoLoaded) {
-                  TodoModel? task;
-                  for (var t in state.tasks) {
-                    if (t.id == widget.task.id) {
-                      task = t;
-                      break;
-                    }
-                  }
-                  task ??= widget.task;
+                  TodoModel? task = state.tasks.firstWhere(
+                    (t) => t.id == widget.task.id,
+                    orElse: () => widget.task,
+                  );
 
                   if (task.todos.isEmpty) return const SizedBox();
 
-                  final completedCount =
-                      task.todos.where((t) => t.isCompleted).length;
+                  final completedCount = task.todos.where((t) => t.isCompleted).length;
                   final allCompleted = completedCount == task.todos.length;
 
-                  return Container(
-                    padding: const EdgeInsets.all(12),
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                    padding: const EdgeInsets.all(14),
                     decoration: BoxDecoration(
                       color: allCompleted
-                          ? Colors.green.withOpacity(0.1)
-                          : Colors.blue.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(8),
+                          ? Colors.green.withOpacity(0.15)
+                          : Colors.blue.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(14),
                     ),
                     child: Row(
                       children: [
                         Icon(
-                          allCompleted ? Icons.check_circle : Icons.info,
+                          allCompleted ? Icons.check_circle : Icons.info_outline,
                           color: allCompleted ? Colors.green : Colors.blue,
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 10),
                         Text(
                           allCompleted
-                              ? "Task completed"
+                              ? "All Tasks completed 🎉"
                               : "$completedCount / ${task.todos.length} todos completed",
                           style: TextStyle(
                             color: allCompleted ? Colors.green : Colors.blue,

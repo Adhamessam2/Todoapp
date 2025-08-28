@@ -28,7 +28,6 @@ class TodoCubit extends Cubit<TodoState> {
   }
 
   Future<void> loadTasks() async {
-    // This method can be removed as the stream handles loading.
   }
 
   Future<void> addTask(TodoModel task) async {
