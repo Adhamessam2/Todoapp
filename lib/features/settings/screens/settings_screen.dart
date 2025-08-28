@@ -77,7 +77,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       trailing: Icon(Icons.chevron_right, color: Colors.white),
                       onTap: () {},
                     ),
-                    SizedBox(height: 340.h),
+                    SizedBox(height: 10.h),
+                    Divider(color: Colors.white54, thickness: 1, height: 1),
+                    SizedBox(height: 10.h),
+                    ListTile(
+                      leading: Icon(Icons.group, color: Colors.white, size: 30),
+                      title: Text(
+                        'Groups',
+                        style: TextStyle(color: Colors.white, fontSize: 22),
+                      ),
+                      trailing: Icon(Icons.chevron_right, color: Colors.white),
+                      onTap: () {},
+                    ),
+                    SizedBox(height: 300.h),
                     BlocBuilder<Authlogic, AuthStates>(
                       builder: (context, state) {
                         final cubit = context.read<Authlogic>();
