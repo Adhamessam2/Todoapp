@@ -18,6 +18,7 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Appcolors.navyblue,
         title: Text(groupModel.groupeName, style: Customstyle.mystyle),
         actions: [

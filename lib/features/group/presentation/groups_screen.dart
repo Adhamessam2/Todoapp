@@ -18,6 +18,7 @@ class GroupesScreen extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Appcolors.navyblue,
         title: Text("Groups", style: Customstyle.mystyle),
         actions: [
