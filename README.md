@@ -1,20 +1,44 @@
-<<<<<<< HEAD
-# Todoapp
-=======
-# todoapp
+Team Todo App
 
-A new Flutter project.
+A collaborative Todo app built with Flutter and Firebase, enabling teams to manage tasks efficiently with priority levels, deadlines, and real-time syncing.
 
-## Getting Started
+Features
 
-This project is a starting point for a Flutter application.
+Authentication: Sign up, log in, and manage users via Firebase Auth.
 
-A few resources to get you started if this is your first Flutter project:
+Todo Management: Add, edit, and delete todos.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Priority Levels: Assign importance: None → Critical.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
->>>>>>> e139122b33bf5e49047ed4fbaaa599cc00873db6
+Deadline Tracking: Automatically categorize tasks as Today, Past, Future.
+
+Sorting Options: Sort todos by Newest, Oldest, Deadline, Importance.
+
+State Management: Implemented with Cubit/BLoC.
+
+Group Todos: Share todos among team members for collaboration.
+
+Firebase Backend: Firestore for storage, Auth for authentication.
+Usage
+
+Sign up or log in.
+
+Create, edit, and delete todos.
+
+Assign priority and deadlines.
+
+Sort and filter tasks.
+
+Invite teammates to share todos.
+
+Tech Stack
+
+Flutter & Dart
+
+Firebase Auth & Firestore
+
+Cubit/BLoC for state management
+
+Future Improvements
+
+Advanced search and filters.
